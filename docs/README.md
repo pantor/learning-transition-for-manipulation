@@ -49,6 +49,6 @@ Planning within robotic tasks usually involves a transition model of the environ
 
 ### Optimize for fewest Actions
 
-![alt text](https://raw.githubusercontent.com/pantor/learning-transition-model-for-manipulation/master/docs/assets/plan-step-fast/result-0.png)
+![alt text](https://raw.githubusercontent.com/pantor/learning-transition-model-for-manipulation/master/docs/assets/plan-steps-fast/result-0.png)
 
 ### Optimize for Sum of Estimated Reward
