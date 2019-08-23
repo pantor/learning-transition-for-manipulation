@@ -43,3 +43,12 @@ Planning within robotic tasks usually involves a transition model of the environ
 | Multiple  | 20.4 pm 1.0 |  97.1 pm 1.6 |      612 pm 29 |         |
 | Single + Prediction | 12.8 pm 0.3 |  97.0 pm 1.6 |      384 pm 10 |         |
 | Multiple + Prediction | 12.8 pm 0.3 |  97.0 pm 1.6 |      384 pm 10 |         |
+
+
+## Planning Ahead
+
+### Optimize for fewest Actions
+
+![alt text](https://raw.githubusercontent.com/pantor/learning-transition-model-for-manipulation/master/docs/assets/plan-step-fast/result-0.png)
+
+### Optimize for Sum of Estimated Reward
