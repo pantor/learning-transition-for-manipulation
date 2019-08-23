@@ -1,0 +1,137 @@
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+    <title>Learning a Generative Transition Model for Robotic Grasping</title>
+    <meta property="og:title" content="Learning a Generative Transition Model for Robotic Grasping">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="Learning a Generative Transition Model for Robotic Manipulation">
+    <meta property="og:description" content="Learning a Generative Transition Model for Robotic Manipulation">
+    <link rel="canonical" href="https://pantor.github.io/learning-transition-model-for-manipulation/">
+    <meta property="og:url" content="https://pantor.github.io/learning-transition-model-for-manipulation/">
+    <meta property="og:site_name" content="learning-transition-model-for-manipulation">
+    <script type="application/ld+json">
+      {"headline":"Learning a Generative Transition Model for Robotic Grasping","@type":"WebSite","url":"https://pantor.github.io/learning-transition-model-for-manipulation/","name":"learning-transition-model-for-manipulation","description":"Learning a Generative Transition Model for Robotic Manipulation","@context":"http://schema.org"
+    }</script>
+    <!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div class="main-content">
+      <img src="assets/logos/logo-kit.png" height="82em" />
+      <img src="assets/logos/logo-ipr.png" height="82em" style="float: right;" />
+    </div>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Learning a Generative Transition Model for Robotic&nbsp;Manipulation</h1>
+      <h2 class="project-tagline">
+        Lars Berscheid, Pascal Meißner, and Torsten Kröger<br>
+        <a href="https://ipr.kit.edu" style="color: white;">Intelligent for Process Automation and Robotics Lab (IPR), Karlsruhe Institute of Technology (KIT)</a>
+      </h2>
+
+      <a class="btn" disabled>View Paper - Hopefully Soon ;)</a>
+      <a href="https://drive.google.com/open?id=1zpQiE33D4JNLQ1kD8PeW4H1DP4ddwY1a" class="btn">View Video</a>
+      <a href="https://github.com/pantor/learning-transition-model-for-manipulation" class="btn">View Code</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <center>
+        <h4>Abstract</h4>
+        <p>
+          Planning within robotic tasks usually involves a transition model of the environment’s state, which are often in a high-dimensional visual space. We explicitly learn a transition model using the Bicycle GAN architecture, capturing the stochastic process of the real world and thus allowing for uncertainty estimation. Then, we apply this approach to the real-world task of bin picking, where a robot should empty a bin by grasping and shifting objects as fast as possible. The model is trained with around \num{30000} pairs of real-world images before and after a given object manipulation. Such a model allows for two important skills: First, for applications with flange-mounted cameras, the picks per hours can be increased by skipping the recording of images. Second, we use the model for planning ahead while emptying the bin, minimizing either the number of actions or maximizing the estimated reward over the next $N$ actions. We show both advantages with real-robot experiments and set a new state-of-the-art result in the YCB block test.
+        </p>
+
+        <h4>Conference Video</h4>
+        <iframe width="560" height="315" src="https://drive.google.com/open?id=1zpQiE33D4JNLQ1kD8PeW4H1DP4ddwY1a" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </center>
+
+      <hr>
+
+      <h2>Supplementary Material</h2>
+
+      <h3>Grasp Rate</h3>
+
+      <h3 id="ycb-block-test-benchmark">YCB Block Test Benchmark</h2>
+
+      gif block test
+
+      <p>The <a href>YCB Block Test Benchmark</a> is about grasping and placing as many objects as possible into another bin within 2 minutes. The wooden cubes have a side length of 2.5cm. The gripper needs to be above the other bin before dropping. The robotic benchmark - in contrast to the original medical test - allows for grasping multiple objects at once.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Objects</th>
+            <th>Grasp Rate [%]</th>
+            <th>Picks Per Hour (PPH)</th>
+            <th>Video</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Random</td>
+            <td style="text-align: right">2.2 ± 0.7</td>
+            <td style="text-align: right">13 ± 4</td>
+            <td style="text-align: right">66 ± 20</td>
+            <td style="text-align: right"><a href>2 Objects</a></td>
+          </tr>
+          <tr>
+            <td>Single</td>
+            <td style="text-align: right">12.8 ± 0.3</td>
+            <td style="text-align: right">97 ± 2</td>
+            <td style="text-align: right">384 ± 10</td>
+            <td style="text-align: right"><a href>12 Objects</a></td>
+          </tr>
+          <tr>
+            <td>Single + Prediction</td>
+            <td style="text-align: right">16.4 ± 0.5</td>
+            <td style="text-align: right">94 ± 2</td>
+            <td style="text-align: right">492 ± 14</td>
+            <td style="text-align: right"><a href>27 Objects</a></td>
+          </tr>
+          <tr>
+            <td>Multiple</td>
+            <td style="text-align: right">20.4 ± 1.0</td>
+            <td style="text-align: right">96 ± 2</td>
+            <td style="text-align: right">612 ± 29</td>
+            <td style="text-align: right"><a href>20 Objects</a></td>
+          </tr>
+          <tr>
+            <td>Multiple + Prediction</td>
+            <td style="text-align: right">23.4 ± 0.3</td>
+            <td style="text-align: right">94 ± 2</td>
+            <td style="text-align: right">702 ± 14</td>
+            <td style="text-align: right"><a href>24 Objects</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Detailed experimental results can be found <a href="detail/block-test.html">here</a>.</p>
+
+
+      <h3>Planning Ahead</h2>
+
+      <h4>Optimize for Fewest Actions</h4>
+
+      <h4>Optimize for Sum of Rewards</h4>
+      
+
+
+      <footer class="site-footer">
+        <span class="site-footer-owner">
+          Lars Berscheid
+        </span>
+        
+        <span class="site-footer-credits">
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,242 @@
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+    <title>Learning a Generative Transition Model for Robotic Grasping</title>
+    <meta property="og:title" content="Learning a Generative Transition Model for Robotic Grasping">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="Learning a Generative Transition Model for Robotic Manipulation">
+    <meta property="og:description" content="Learning a Generative Transition Model for Robotic Manipulation">
+    <link rel="canonical" href="https://pantor.github.io/learning-transition-model-for-manipulation/">
+    <meta property="og:url" content="https://pantor.github.io/learning-transition-model-for-manipulation/">
+    <meta property="og:site_name" content="learning-transition-model-for-manipulation">
+    <script type="application/ld+json">
+      {"headline":"Learning a Generative Transition Model for Robotic Grasping","@type":"WebSite","url":"https://pantor.github.io/learning-transition-model-for-manipulation/","name":"learning-transition-model-for-manipulation","description":"Learning a Generative Transition Model for Robotic Manipulation","@context":"http://schema.org"
+    }</script>
+    <!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../style.css">
+  </head>
+
+  <body>
+    <div class="main-content">
+      <img src="../assets/logos/logo-kit.png" height="82em" />
+      <img src="../assets/logos/logo-ipr.png" height="82em" style="float: right;" />
+    </div>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Learning a Generative Transition Model for Robotic&nbsp;Manipulation</h1>
+      <h2 class="project-tagline">
+        Lars Berscheid, Pascal Meißner, and Torsten Kröger<br>
+        <a href="https://ipr.kit.edu" style="color: white;">Intelligent for Process Automation and Robotics Lab (IPR), Karlsruhe Institute of Technology (KIT)</a>
+      </h2>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h2>YCB Block Test Evaluation Details</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>#</th>
+            <th style="text-align: right">Grasped Objects</th>
+            <th style="text-align: right">Failed Grasps</th>
+            <th style="text-align: right">Picks Per Hour</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Random</strong></td>
+            <td>1</td>
+            <td style="text-align: right">4</td>
+            <td style="text-align: right">14</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>2</td>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">15</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>3</td>
+            <td style="text-align: right">3</td>
+            <td style="text-align: right">12</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>4</td>
+            <td style="text-align: right">3</td>
+            <td style="text-align: right">15</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>5</td>
+            <td style="text-align: right">0</td>
+            <td style="text-align: right">16</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td><strong>Single</strong></td>
+            <td>1</td>
+            <td style="text-align: right">12</td>
+            <td style="text-align: right">0</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>2</td>
+            <td style="text-align: right">14</td>
+            <td style="text-align: right">0</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>3</td>
+            <td style="text-align: right">12</td>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>4</td>
+            <td style="text-align: right">13</td>
+            <td style="text-align: right">0</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>5</td>
+            <td style="text-align: right">13</td>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td><strong>Multiple</strong></td>
+            <td>1</td>
+            <td style="text-align: right">17</td>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>2</td>
+            <td style="text-align: right">19</td>
+            <td style="text-align: right">0</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>3</td>
+            <td style="text-align: right">22</td>
+            <td style="text-align: right">0</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>4</td>
+            <td style="text-align: right">23</td>
+            <td style="text-align: right">0</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>5</td>
+            <td style="text-align: right">21</td>
+            <td style="text-align: right">2</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td><strong>Single + Prediction</strong></td>
+            <td>1</td>
+            <td style="text-align: right">16</td>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>2</td>
+            <td style="text-align: right">15</td>
+            <td style="text-align: right">2</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>3</td>
+            <td style="text-align: right">16</td>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>4</td>
+            <td style="text-align: right">18</td>
+            <td style="text-align: right">0</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>5</td>
+            <td style="text-align: right">17</td>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td><strong>Multiple + Prediction</strong></td>
+            <td>1</td>
+            <td style="text-align: right">23</td>
+            <td style="text-align: right">2</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>2</td>
+            <td style="text-align: right">25</td>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>3</td>
+            <td style="text-align: right">24</td>
+            <td style="text-align: right">0</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>4</td>
+            <td style="text-align: right">23</td>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">230</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>5</td>
+            <td style="text-align: right">22</td>
+            <td style="text-align: right">3</td>
+            <td style="text-align: right">230</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner">
+          Lars Berscheid
+        </span>
+        
+        <span class="site-footer-credits">
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>
