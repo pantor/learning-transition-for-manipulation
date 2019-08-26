@@ -712,3 +712,26 @@ a:hover {
  color:#819198
 }
 
+
+
+.highlight-image {
+   border: #008080 solid 3px;
+}
+
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+   transition: all .5s ease;
+ }
+ .slide-fade-leave-active {
+   transition: all .5s ease;
+ }
+ .slide-fade-enter {
+   transform: translateX(300px);
+   opacity: 0;
+ }
+.slide-fade-leave-to {
+   transform: translateX(-300px);
+   opacity: 0;
+ }

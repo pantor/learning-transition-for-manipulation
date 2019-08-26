@@ -35,7 +35,7 @@
         <a href="https://ipr.kit.edu" style="color: white;">Intelligent for Process Automation and Robotics Lab (IPR), Karlsruhe Institute of Technology (KIT)</a>
       </h2>
 
-      <a class="btn" disabled>View Paper - Hopefully Soon ;)</a>
+      <a class="btn" disabled>View Paper</a>
       <a href="https://drive.google.com/open?id=1zpQiE33D4JNLQ1kD8PeW4H1DP4ddwY1a" class="btn">View Video</a>
       <a href="https://github.com/pantor/learning-transition-model-for-manipulation" class="btn">View Code</a>
     </header>
@@ -48,18 +48,49 @@
         </p>
 
         <h4>Conference Video</h4>
-        <iframe width="560" height="315" src="https://drive.google.com/open?id=1zpQiE33D4JNLQ1kD8PeW4H1DP4ddwY1a" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe src="https://drive.google.com/file/d/1zpQiE33D4JNLQ1kD8PeW4H1DP4ddwY1a/preview" width="640" height="480" allowfullscreen></iframe>
       </center>
 
       <hr>
 
       <h2>Supplementary Material</h2>
 
+      <h3>Iterative Prediction</h3>
+
+      <div id="cs-top">
+        <p>
+          Prediction Step: {{ current_step }} actions since last image measurement.
+          <button v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0">-1</button>
+          <button v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1">+1</button>
+        </p>
+  
+        <div style="overflow-y: scroll;" ref="container">
+          <div v-bind:style="{ width: length * 300 + 10 + 'px' }">
+            <span v-for="i in length" ref="steps">
+              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/example-predictions/result-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
+            </span>
+  
+            <span v-for="i in length">
+              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/example-predictions/uncertainty-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
+            </span>
+          </div>
+        </div>
+
+        <p>
+          Estimated Reward: {{ estimated_rewards[current_step][0] }} ± {{ estimated_rewards[current_step][1] }}
+        </p>
+      </div>
+
+      
+
       <h3>Grasp Rate</h3>
+
+      <p>Detailed experimental results of each grasp attempts (N = 1080) can be found <a href="detail/grasp-rate.html">here</a>.</p>
+
 
       <h3 id="ycb-block-test-benchmark">YCB Block Test Benchmark</h2>
 
-      gif block test
+      -GIF block test-
 
       <p>The <a href>YCB Block Test Benchmark</a> is about grasping and placing as many objects as possible into another bin within 2 minutes. The wooden cubes have a side length of 2.5cm. The gripper needs to be above the other bin before dropping. The robotic benchmark - in contrast to the original medical test - allows for grasping multiple objects at once.</p>
 
@@ -119,6 +150,68 @@
 
       <h4>Optimize for Fewest Actions</h4>
 
+      - Image of Object Configuration -
+
+      <h5>a) Example for 4 actions</h5>
+      <div id="cs-fast">
+        <p>
+          Prediction Step: {{ current_step }} actions since last image measurement.
+          <button v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0">-1</button>
+          <button v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1">+1</button>
+        </p>
+  
+        <div style="overflow-y: scroll;" ref="container">
+          <div v-bind:style="{ width: length * 300 + 10 + 'px' }">
+            <span v-for="i in length" ref="steps">
+              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/plan-steps-fast/result-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
+            </span>
+  
+            <span v-for="i in length">
+              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/plan-steps-fast/uncertainty-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
+            </span>
+          </div>
+        </div>
+
+        <p>
+          Estimated Reward: {{ estimated_rewards[current_step][0] }} ± {{ estimated_rewards[current_step][1] }}
+        </p>
+      </div>
+
+      <h5>b) Example for 5 actions</h5>
+      <div id="cs-slow">
+        <p>
+          Prediction Step: {{ current_step }} actions since last image measurement.
+          <button v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0">-1</button>
+          <button v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1">+1</button>
+        </p>
+
+        <!--button @click="show = !show">
+          Toggle render
+        </button>
+        <transition name="slide-fade">
+          <p v-if="show">
+            <img src="assets/plan-steps-slow/result-0.png" width="300px"/>
+          </p>
+        </transition-->    
+  
+        <div style="overflow-y: scroll;" ref="container">
+          <div v-bind:style="{ width: length * 300 + 10 + 'px' }">
+            <span v-for="i in length" ref="steps">
+              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/plan-steps-slow/result-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
+            </span>
+  
+            <span v-for="i in length">
+              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/plan-steps-slow/uncertainty-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
+            </span>
+          </div>
+        </div>
+
+        <p>
+          Estimated Reward: {{ estimated_rewards[current_step][0] }} ± {{ estimated_rewards[current_step][1] }}
+        </p>
+      </div>
+      
+
       <h4>Optimize for Sum of Rewards</h4>
       
 
@@ -133,5 +226,81 @@
         </span>
       </footer>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var cs_top = new Vue({
+        el: '#cs-top',
+        data: {
+          current_step: 0,
+          length: 6,
+          estimated_rewards: [
+            [0.3, 0.2],
+            [0.2, 0.1],
+            [0.2, 0.1],
+            [0.2, 0.1],
+            [0.2, 0.1],
+            [0.3, 0.2],
+            [0.2, 0.1],
+            [0.2, 0.1],
+            [0.2, 0.1],
+            [0.2, 0.1],
+          ],
+          show: true,
+        },
+        methods: {
+          setStep: function(new_step) {
+            this.current_step = new_step;
+            console.log(this.$refs.steps[this.current_step].children[0]);
+            this.$refs.container.scrollTop = 550;
+          }
+        }
+      })
+
+      var cs_slow = new Vue({
+        el: '#cs-slow',
+        data: {
+          current_step: 0,
+          length: 5,
+          estimated_rewards: [
+            [0.3, 0.2],
+            [0.2, 0.1],
+            [0.2, 0.1],
+            [0.2, 0.1],
+            [0.2, 0.1],
+          ],
+          show: true,
+        },
+        methods: {
+          setStep: function(new_step) {
+            this.current_step = new_step;
+            console.log(this.$refs.steps[this.current_step].children[0]);
+            this.$refs.container.scrollTop = 550;
+          }
+        }
+      })
+
+      var cs_fast = new Vue({
+        el: '#cs-fast',
+        data: {
+          current_step: 0,
+          length: 4,
+          estimated_rewards: [
+            [0.3, 0.2],
+            [0.2, 0.1],
+            [0.2, 0.1],
+            [0.2, 0.1],
+          ],
+          show: true,
+        },
+        methods: {
+          setStep: function(new_step) {
+            this.current_step = new_step;
+            console.log(this.$refs.steps[this.current_step].children[0]);
+            this.$refs.container.scrollTop = 550;
+          }
+        }
+      })
+    </script>
   </body>
 </html>
