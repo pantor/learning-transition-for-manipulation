@@ -489,7 +489,9 @@ a:hover {
 }
 .project-name {
  margin-top:0;
- margin-bottom:0.1rem
+ margin-bottom:0.1rem;
+ max-width: 30em;
+ margin: auto;
 }
 @media screen and (min-width: 64em) {
  .project-name {
@@ -712,26 +714,82 @@ a:hover {
  color:#819198
 }
 
-
-
-.highlight-image {
-   border: #008080 solid 3px;
+@media screen and (min-width: 64em) {
+   .button-left {
+      position: absolute;
+      margin-left: -106px;
+      margin-top: -250px !important;
+   }
+   
+   .button-right {
+      position: absolute;
+      margin-left: 10px;
+      margin-top: -250px !important;
+   }
+}
+@media screen and (min-width: 42em) and (max-width: 64em) {
+   .button-left {
+      margin: 0.4em;
+   }
+   
+   .button-right {
+      margin: 0.4em;
+   }
+}
+@media screen and (max-width: 42em) {
+   .button-left {
+      margin: 0.4em;
+   }
+   
+   .button-right {
+      margin: 0.4em;
+   }
 }
 
 
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
-.slide-fade-enter-active {
-   transition: all .5s ease;
- }
- .slide-fade-leave-active {
-   transition: all .5s ease;
- }
- .slide-fade-enter {
-   transform: translateX(300px);
-   opacity: 0;
- }
-.slide-fade-leave-to {
-   transform: translateX(-300px);
-   opacity: 0;
- }
+
+.chevron {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
+  border: 0.2em none #008080;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.chevron::after {
+   border-style: solid;
+   border-color: #008080;
+	border-width: 0.3em 0.3em 0 0;
+	content: '';
+	display: inline-block;
+	height: 1.5em;
+	position: relative;
+	top: 0.1em;
+	transform: rotate(-45deg);
+	vertical-align: middle;
+	width: 1.5em;
+}
+
+.chevron:disabled {
+   background-color: white;
+}
+
+.chevron:disabled::after {
+   border-color: rgb(231, 231, 231);
+}
+
+.chevron.right:after {
+   left: -0.3em;
+	transform: rotate(45deg);
+}
+
+.chevron.left:after {
+	left: 0.3em;
+	transform: rotate(-135deg);
+}
+
+.highlight-image {
+   border: #008080 solid 4px;
+   border-radius: 4px;
+}

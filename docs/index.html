@@ -23,13 +23,13 @@
   </head>
 
   <body>
-    <div class="main-content">
+    <div class="main-content" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
       <img src="assets/logos/logo-kit.png" height="82em" />
-      <img src="assets/logos/logo-ipr.png" height="82em" style="float: right;" />
+      <img src="assets/logos/logo-ipr.png" height="82em" />
     </div>
 
     <header class="page-header" role="banner">
-      <h1 class="project-name">Learning a Generative Transition Model for Robotic&nbsp;Manipulation</h1>
+      <h1 class="project-name">Learning a Generative Transition Model for Uncertainty&#8209;Aware Robotic&nbsp;Manipulation</h1>
       <h2 class="project-tagline">
         Lars Berscheid, Pascal Meißner, and Torsten Kröger<br>
         <a href="https://ipr.kit.edu" style="color: white;">Intelligent for Process Automation and Robotics Lab (IPR), Karlsruhe Institute of Technology (KIT)</a>
@@ -53,35 +53,39 @@
 
       <hr>
 
+
       <h2>Supplementary Material</h2>
+
 
       <h3>Iterative Prediction</h3>
 
       <div id="cs-top">
-        <p>
-          Prediction Step: {{ current_step }} actions since last image measurement.
-          <button v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0">-1</button>
-          <button v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1">+1</button>
-        </p>
-  
-        <div style="overflow-y: scroll;" ref="container">
-          <div v-bind:style="{ width: length * 300 + 10 + 'px' }">
-            <span v-for="i in length" ref="steps">
-              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/example-predictions/result-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
-            </span>
-  
-            <span v-for="i in length">
-              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/example-predictions/uncertainty-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
-            </span>
+        <div style="display: flex; align-items: center; flex-wrap: nowrap; overflow-y: scroll;">
+          <div v-for="i in length" ref="steps" style="min-width: 300px; margin: 5px;">
+            <p>
+              <b>Step {{ i - 1 }}</b> <small v-if="i - 1 == 0">(Image Measurement)</small><br>
+              Reward {{ 1 }}<br>
+              Estimation {{ estimated_rewards[i - 1][0] }} ± {{ estimated_rewards[i - 1][1] }}
+            </p>
+
+            <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
+              <img :src="`assets/example-predictions/result-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
+              <img :src="`assets/example-predictions/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
+            </div>
           </div>
         </div>
 
-        <p>
-          Estimated Reward: {{ estimated_rewards[current_step][0] }} ± {{ estimated_rewards[current_step][1] }}
-        </p>
+        <div style="display: flex; justify-content: space-between">
+          <div>
+            <button class="button-left chevron left" v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0"></button>
+          </div>
+        
+          <div>
+            <button class="button-right chevron right" v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1"></button>
+          </div>
+        </div>
       </div>
 
-      
 
       <h3>Grasp Rate</h3>
 
@@ -90,9 +94,11 @@
 
       <h3 id="ycb-block-test-benchmark">YCB Block Test Benchmark</h2>
 
-      -GIF block test-
+      <center>
+        <img src="assets/block-test.gif" />
+      </center>
 
-      <p>The <a href>YCB Block Test Benchmark</a> is about grasping and placing as many objects as possible into another bin within 2 minutes. The wooden cubes have a side length of 2.5cm. The gripper needs to be above the other bin before dropping. The robotic benchmark - in contrast to the original medical test - allows for grasping multiple objects at once.</p>
+      <p>The <a href="http://www.ycbbenchmarks.com/protocols-and-benchmarks/">YCB Block Test Benchmark</a> is about grasping and placing as many objects as possible into another bin within 2 minutes. The wooden cubes have a side length of 2.5cm. The gripper needs to be above the other bin before dropping. The robotic benchmark - in contrast to the original medical test - allows for grasping multiple objects at once.</p>
 
       <table>
         <thead>
@@ -110,35 +116,35 @@
             <td style="text-align: right">2.2 ± 0.7</td>
             <td style="text-align: right">13 ± 4</td>
             <td style="text-align: right">66 ± 20</td>
-            <td style="text-align: right"><a href>2 Objects</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/file/d/1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ/view?usp=sharing">1 Object</a></td>
           </tr>
           <tr>
             <td>Single</td>
             <td style="text-align: right">12.8 ± 0.3</td>
             <td style="text-align: right">97 ± 2</td>
             <td style="text-align: right">384 ± 10</td>
-            <td style="text-align: right"><a href>12 Objects</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/file/d/1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ/view?usp=sharing">12 Objects</a></td>
           </tr>
           <tr>
             <td>Single + Prediction</td>
             <td style="text-align: right">16.4 ± 0.5</td>
             <td style="text-align: right">94 ± 2</td>
             <td style="text-align: right">492 ± 14</td>
-            <td style="text-align: right"><a href>27 Objects</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/file/d/1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ/view?usp=sharing">17 Objects</a></td>
           </tr>
           <tr>
             <td>Multiple</td>
             <td style="text-align: right">20.4 ± 1.0</td>
             <td style="text-align: right">96 ± 2</td>
             <td style="text-align: right">612 ± 29</td>
-            <td style="text-align: right"><a href>20 Objects</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/file/d/1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ/view?usp=sharing">20 Objects</a></td>
           </tr>
           <tr>
             <td>Multiple + Prediction</td>
             <td style="text-align: right">23.4 ± 0.3</td>
             <td style="text-align: right">94 ± 2</td>
             <td style="text-align: right">702 ± 14</td>
-            <td style="text-align: right"><a href>24 Objects</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/file/d/1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ/view?usp=sharing">24 Objects</a></td>
           </tr>
         </tbody>
       </table>
@@ -154,65 +160,62 @@
 
       <h5>a) Example for 4 actions</h5>
       <div id="cs-fast">
-        <p>
-          Prediction Step: {{ current_step }} actions since last image measurement.
-          <button v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0">-1</button>
-          <button v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1">+1</button>
-        </p>
-  
-        <div style="overflow-y: scroll;" ref="container">
-          <div v-bind:style="{ width: length * 300 + 10 + 'px' }">
-            <span v-for="i in length" ref="steps">
-              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/plan-steps-fast/result-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
-            </span>
-  
-            <span v-for="i in length">
-              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/plan-steps-fast/uncertainty-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
-            </span>
+        <div style="display: flex; align-items: center; flex-wrap: nowrap; overflow-y: scroll;">
+          <div v-for="i in length" ref="steps" style="min-width: 300px; margin: 5px;">
+            <p>
+              <b>Step {{ i - 1 }}</b> <small v-if="i - 1 == 0">(Image Measurement)</small><br>
+              Reward {{ 1 }}<br>
+              Estimation {{ estimated_rewards[i - 1][0] }} ± {{ estimated_rewards[i - 1][1] }}
+            </p>
+
+            <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
+              <img :src="`assets/example-predictions/result-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
+              <img :src="`assets/example-predictions/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
+            </div>
           </div>
         </div>
 
-        <p>
-          Estimated Reward: {{ estimated_rewards[current_step][0] }} ± {{ estimated_rewards[current_step][1] }}
-        </p>
+        <div style="display: flex; justify-content: space-between">
+          <div>
+            <button class="button-left chevron left" v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0"></button>
+          </div>
+        
+          <div>
+            <button class="button-right chevron right" v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1"></button>
+          </div>
+        </div>
       </div>
 
       <h5>b) Example for 5 actions</h5>
       <div id="cs-slow">
-        <p>
-          Prediction Step: {{ current_step }} actions since last image measurement.
-          <button v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0">-1</button>
-          <button v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1">+1</button>
-        </p>
+        <div style="display: flex; align-items: center; flex-wrap: nowrap; overflow-y: scroll;">
+          <div v-for="i in length" ref="steps" style="min-width: 300px; margin: 5px;">
+            <p>
+              <b>Step {{ i - 1 }}</b> <small v-if="i - 1 == 0">(Image Measurement)</small><br>
+              Reward {{ 1 }}<br>
+              Estimation {{ estimated_rewards[i - 1][0] }} ± {{ estimated_rewards[i - 1][1] }}
+            </p>
 
-        <!--button @click="show = !show">
-          Toggle render
-        </button>
-        <transition name="slide-fade">
-          <p v-if="show">
-            <img src="assets/plan-steps-slow/result-0.png" width="300px"/>
-          </p>
-        </transition-->    
-  
-        <div style="overflow-y: scroll;" ref="container">
-          <div v-bind:style="{ width: length * 300 + 10 + 'px' }">
-            <span v-for="i in length" ref="steps">
-              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/plan-steps-slow/result-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
-            </span>
-  
-            <span v-for="i in length">
-              <img v-bind:class="current_step == i-1 ? 'highlight-image' : ''" :src="`assets/plan-steps-slow/uncertainty-${i - 1}.png`" width="300px" v-on:click="setStep(i - 1)"/>
-            </span>
+            <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
+              <img :src="`assets/example-predictions/result-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
+              <img :src="`assets/example-predictions/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
+            </div>
           </div>
         </div>
 
-        <p>
-          Estimated Reward: {{ estimated_rewards[current_step][0] }} ± {{ estimated_rewards[current_step][1] }}
-        </p>
+        <div style="display: flex; justify-content: space-between">
+          <div>
+            <button class="button-left chevron left" v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0"></button>
+          </div>
+        
+          <div>
+            <button class="button-right chevron right" v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1"></button>
+          </div>
+        </div>
       </div>
       
 
-      <h4>Optimize for Sum of Rewards</h4>
+      <!--h4>Optimize for Sum of Rewards</h4-->
       
 
 
@@ -229,6 +232,14 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+      var setCurrentStep = function(new_step) {
+        this.current_step = new_step;
+        this.$refs.steps[this.current_step].scrollIntoView({ inline: 'center', behavior: 'smooth' });
+        setTimeout(() => {
+          this.$refs.steps[this.current_step].scrollIntoView({ inline: 'center', behavior: 'instant' });
+        }, 350); // [ms]
+      };
+
       var cs_top = new Vue({
         el: '#cs-top',
         data: {
@@ -249,11 +260,7 @@
           show: true,
         },
         methods: {
-          setStep: function(new_step) {
-            this.current_step = new_step;
-            console.log(this.$refs.steps[this.current_step].children[0]);
-            this.$refs.container.scrollTop = 550;
-          }
+          setStep: setCurrentStep
         }
       })
 
@@ -272,11 +279,7 @@
           show: true,
         },
         methods: {
-          setStep: function(new_step) {
-            this.current_step = new_step;
-            console.log(this.$refs.steps[this.current_step].children[0]);
-            this.$refs.container.scrollTop = 550;
-          }
+          setStep: setCurrentStep
         }
       })
 
@@ -294,11 +297,7 @@
           show: true,
         },
         methods: {
-          setStep: function(new_step) {
-            this.current_step = new_step;
-            console.log(this.$refs.steps[this.current_step].children[0]);
-            this.$refs.container.scrollTop = 550;
-          }
+          setStep: setCurrentStep
         }
       })
     </script>
