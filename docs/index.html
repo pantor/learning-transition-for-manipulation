@@ -56,6 +56,8 @@
 
       <h2>Supplementary Material</h2>
 
+      More visual examples, detailed experimental results.
+
 
       <h3>Iterative Prediction</h3>
 
@@ -89,7 +91,7 @@
 
       <h3>Grasp Rate</h3>
 
-      <p>Detailed experimental results of each grasp attempts (N = 1080) can be found <a href="detail/grasp-rate.html">here</a>.</p>
+      <p>The grasp rate, given by the percentage of successful grasps, depends on various factors. We investigated the dependency of the grasp rate on the prediction step, detailed experimental results of each grasp attempts (N = 1080) can be found <a href="detail/grasp-rate.html">here</a>.</p>
 
 
       <h3 id="ycb-block-test-benchmark">YCB Block Test Benchmark</h2>
@@ -234,10 +236,14 @@
     <script>
       var setCurrentStep = function(new_step) {
         this.current_step = new_step;
-        this.$refs.steps[this.current_step].scrollIntoView({ inline: 'center', behavior: 'smooth' });
-        setTimeout(() => {
-          this.$refs.steps[this.current_step].scrollIntoView({ inline: 'center', behavior: 'instant' });
-        }, 350); // [ms]
+        var a = this.$refs.steps[this.current_step];
+        var p = a.parentNode;
+        var s = p.scrollLeftMax / 5;
+        p.scrollTo({ left: s * new_step, behavior: 'smooth' });
+        // this.$refs.steps[this.current_step].scrollIntoView({ inline: 'center', behavior: 'smooth' });
+        // setTimeout(() => {
+          // this.$refs.steps[this.current_step].scrollIntoView({ inline: 'center', behavior: 'instant' });
+        // }, 350); // [ms]
       };
 
       var cs_top = new Vue({
