@@ -795,12 +795,12 @@ a:hover {
 }
 
 #videobereich {
+   background-color: rgb(243, 243, 243);
    position: relative;
    height: 0;
    padding-bottom: 56.25%;
 }	
 .videoextern {
-   background-color: rgb(243, 243, 243);
    position: absolute;
    top: 0;
    left: 0;
