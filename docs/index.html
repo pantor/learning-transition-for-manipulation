@@ -73,19 +73,19 @@
             </p>
 
             <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
-              <img :src="`assets/example-predictions/result-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
-              <img :src="`assets/example-predictions/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
+              <img :src="`assets/example-predictions/result-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
+              <img :src="`assets/example-predictions/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
             </div>
           </div>
         </div>
 
         <div style="display: flex; justify-content: space-between">
           <div>
-            <button class="button-left chevron left" v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0"></button>
+            <button class="button-left chevron left" v-on:click="setStep(current_step - 1, length)" :disabled="current_step <= 0"></button>
           </div>
         
           <div>
-            <button class="button-right chevron right" v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1"></button>
+            <button class="button-right chevron right" v-on:click="setStep(current_step + 1, length)" :disabled="current_step >= length - 1"></button>
           </div>
         </div>
       </div>
@@ -173,19 +173,19 @@
             </p>
 
             <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
-              <img :src="`assets/example-predictions/result-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
-              <img :src="`assets/example-predictions/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
+              <img :src="`assets/example-predictions/result-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
+              <img :src="`assets/example-predictions/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
             </div>
           </div>
         </div>
 
         <div style="display: flex; justify-content: space-between">
           <div>
-            <button class="button-left chevron left" v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0"></button>
+            <button class="button-left chevron left" v-on:click="setStep(current_step - 1, length)" :disabled="current_step <= 0"></button>
           </div>
         
           <div>
-            <button class="button-right chevron right" v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1"></button>
+            <button class="button-right chevron right" v-on:click="setStep(current_step + 1, length)" :disabled="current_step >= length - 1"></button>
           </div>
         </div>
       </div>
@@ -201,19 +201,19 @@
             </p>
 
             <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
-              <img :src="`assets/example-predictions/result-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
-              <img :src="`assets/example-predictions/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1)"/>
+              <img :src="`assets/example-predictions/result-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
+              <img :src="`assets/example-predictions/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
             </div>
           </div>
         </div>
 
         <div style="display: flex; justify-content: space-between">
           <div>
-            <button class="button-left chevron left" v-on:click="setStep(current_step - 1)" :disabled="current_step <= 0"></button>
+            <button class="button-left chevron left" v-on:click="setStep(current_step - 1, length)" :disabled="current_step <= 0"></button>
           </div>
         
           <div>
-            <button class="button-right chevron right" v-on:click="setStep(current_step + 1)" :disabled="current_step >= length - 1"></button>
+            <button class="button-right chevron right" v-on:click="setStep(current_step + 1, length)" :disabled="current_step >= length - 1"></button>
           </div>
         </div>
       </div>
@@ -236,12 +236,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-      var setCurrentStep = function(new_step) {
+      var setCurrentStep = function(new_step, length) {
         var be = new_step < this.current_step ? 'instant' : 'smooth';
         this.current_step = new_step;
-        var a = this.$refs.steps[this.current_step];
-        var p = a.parentNode;
-        var s = p.scrollLeftMax / 5;
+        var p = this.$refs.steps[this.current_step].parentNode;
+        var s = p.scrollLeftMax / (length - 1);
         p.scrollTo({ left: s * new_step, behavior: be });
       };
 
