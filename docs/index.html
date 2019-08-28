@@ -48,7 +48,9 @@
         </p>
 
         <h4>Conference Video</h4>
-        <iframe src="https://drive.google.com/file/d/1zpQiE33D4JNLQ1kD8PeW4H1DP4ddwY1a/preview" width="640" height="480" allowfullscreen></iframe>
+        <div id="videobereich">
+          <iframe class="videoextern" src="https://drive.google.com/file/d/1zpQiE33D4JNLQ1kD8PeW4H1DP4ddwY1a/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
+        </div>
       </center>
 
       <hr>
@@ -235,15 +237,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
       var setCurrentStep = function(new_step) {
+        var be = new_step < this.current_step ? 'instant' : 'smooth';
         this.current_step = new_step;
         var a = this.$refs.steps[this.current_step];
         var p = a.parentNode;
         var s = p.scrollLeftMax / 5;
-        p.scrollTo({ left: s * new_step, behavior: 'smooth' });
-        // this.$refs.steps[this.current_step].scrollIntoView({ inline: 'center', behavior: 'smooth' });
-        // setTimeout(() => {
-          // this.$refs.steps[this.current_step].scrollIntoView({ inline: 'center', behavior: 'instant' });
-        // }, 350); // [ms]
+        p.scrollTo({ left: s * new_step, behavior: be });
       };
 
       var cs_top = new Vue({
