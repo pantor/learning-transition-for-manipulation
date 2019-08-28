@@ -794,7 +794,7 @@ a:hover {
    border-radius: 4px;
 }
 
-#videobereich {
+.videobereich {
    background-color: rgb(243, 243, 243);
    position: relative;
    height: 0;
