@@ -54,13 +54,21 @@
 
       <hr>
 
-
       <h2>Supplementary Material</h2>
-
-      More visual examples, detailed experimental results.
-
+      
+      Below, we present supplementary material for our publication submitted to ICRA 2020.
+      This includes more visual examples of the transition model (as predicted depth images with corresponding uncertainties), more videos and more detailed experimental results.
+      We follow the structure of the experimental evaluation of the paper and the conference video above.
+      
 
       <h3>Iterative Prediction</h3>
+      
+      As a reminder, we focus on the task of bin picking using a flange-mounted depth camera.
+      The robot should empty the bin using grasping and pre-grasping manipulation (like shifting and pushing) as fast as possible.
+      The transition model predicts the depth image after a given action and its corresponding reward.
+      It was trained on around 30000 pairs of images before and after a manipulation action, using a dataset with three different object types.
+      By applying the transition model iteratively, the robot is able to plan multiple actions based on a single image.
+      
 
       <h4>Simple Example</h4>
 
