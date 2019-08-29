@@ -2,7 +2,6 @@
   <head>
     <meta charset="UTF-8">
 
-    <!-- Begin Jekyll SEO tag v2.5.0 -->
     <title>Learning a Generative Transition Model for Uncertainty-Aware Robotic Manipulation</title>
     <meta property="og:title" content="Learning a Generative Transition Model for Uncertainty-Aware Robotic Manipulation">
     <meta property="og:locale" content="en_US">
@@ -13,8 +12,8 @@
     <meta property="og:site_name" content="learning-transition-model-for-manipulation">
     <script type="application/ld+json">
       {"headline":"Learning a Generative Transition Model for Robotic Grasping","@type":"WebSite","url":"https://pantor.github.io/learning-transition-model-for-manipulation/","name":"learning-transition-model-for-manipulation","description":"Learning a Generative Transition Model for Robotic Manipulation","@context":"http://schema.org"
-    }</script>
-    <!-- End Jekyll SEO tag -->
+    }
+    </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
@@ -65,64 +64,17 @@
 
       <h4>Simple Example</h4>
 
-      <div id="cs-simple-example">
-        <div style="display: flex; align-items: center; flex-wrap: nowrap; overflow-y: scroll;">
-          <div v-for="i in length" ref="steps" style="min-width: 300px; margin: 5px;">
-            <p>
-              <b>Step {{ i - 1 }}</b> <small v-if="i - 1 == 0">(Image Measurement)</small><br>
-              Reward: {{ 1 }}<br>
-              Estimation: {{ estimated_rewards[i - 1][0] }} <span v-if="estimated_rewards[i - 1].length > 1">± {{ estimated_rewards[i - 1][1] }}</span>
-            </p>
-
-            <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
-              <img :src="`assets/simple-example-1/result-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
-              <img :src="`assets/simple-example-1/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
-            </div>
-          </div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between">
-          <div>
-            <button class="button-left chevron left" v-on:click="setStep(current_step - 1, length)" :disabled="current_step <= 0"></button>
-          </div>
-        
-          <div>
-            <button class="button-right chevron right" v-on:click="setStep(current_step + 1, length)" :disabled="current_step >= length - 1"></button>
-          </div>
-        </div>
-      </div>
+      <steps-carousel name="simple-example-1" v-bind:length="10" v-bind:estimated_rewards="estimated_rewards['simple-example-1']"></steps-carousel>
 
 
       <h4>Complex Manipulation (<a href="https://drive.google.com/open?id=1_C-UF_C_8Q4CJlExdXh57CzIQU20LHtY">Video</a>)</h4>
-      <div id="cs-complex-manipulation">
-        <div style="display: flex; align-items: center; flex-wrap: nowrap; overflow-y: scroll;">
-          <div v-for="i in length" ref="steps" style="min-width: 300px; margin: 5px;">
-            <p>
-              <b>Step {{ i - 1 }}</b> <small v-if="i - 1 == 0">(Image Measurement)</small><br>
-              Reward: {{ 1 }}<br>
-              Estimation: {{ estimated_rewards[i - 1][0] }} <span v-if="estimated_rewards[i - 1].length > 1">± {{ estimated_rewards[i - 1][1] }}</span>
-            </p>
 
-            <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
-              <img :src="`assets/complex-manipulation-1/result-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
-              <img :src="`assets/complex-manipulation-1/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
-            </div>
-          </div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between">
-          <div>
-            <button class="button-left chevron left" v-on:click="setStep(current_step - 1, length)" :disabled="current_step <= 0"></button>
-          </div>
-        
-          <div>
-            <button class="button-right chevron right" v-on:click="setStep(current_step + 1, length)" :disabled="current_step >= length - 1"></button>
-          </div>
-        </div>
-      </div>
+      <steps-carousel name="complex-manipulation-1" v-bind:length="7" v-bind:estimated_rewards="estimated_rewards['complex-manipulation-1']"></steps-carousel>
 
 
       <h4>Bin Picking</h4>
+
+      <steps-carousel name="bin-picking-2" v-bind:length="7" v-bind:estimated_rewards="estimated_rewards['bin-picking-2']"></steps-carousel>
 
 
       <h3>Grasp Rate</h3>
@@ -154,35 +106,35 @@
             <td style="text-align: right">2.2 ± 0.7</td>
             <td style="text-align: right">13 ± 4</td>
             <td style="text-align: right">66 ± 20</td>
-            <td style="text-align: right"><a href="https://drive.google.com/open?id=1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ">1 Object</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ">1 Object 🔗</a></td>
           </tr>
           <tr>
             <td>Single</td>
             <td style="text-align: right">12.8 ± 0.3</td>
             <td style="text-align: right">97 ± 2</td>
             <td style="text-align: right">384 ± 10</td>
-            <td style="text-align: right"><a href="https://drive.google.com/file/d/1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ/view?usp=sharing">12 Objects</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ">12 Objects 🔗</a></td>
           </tr>
           <tr>
             <td>Single + Prediction</td>
             <td style="text-align: right">16.4 ± 0.5</td>
             <td style="text-align: right">94 ± 2</td>
             <td style="text-align: right">492 ± 14</td>
-            <td style="text-align: right"><a href="https://drive.google.com/file/d/1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ/view?usp=sharing">17 Objects</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1pn0IlyM1ND6t1zs2kNFoWa2VQBZ4tB3M">15 Objects 🔗</a></td>
           </tr>
           <tr>
             <td>Multiple</td>
             <td style="text-align: right">20.4 ± 1.0</td>
             <td style="text-align: right">96 ± 2</td>
             <td style="text-align: right">612 ± 29</td>
-            <td style="text-align: right"><a href="https://drive.google.com/file/d/1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ/view?usp=sharing">20 Objects</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1fwwd4ca5Z-UxAccsfPeQ92qdTENn36mu">20 Objects 🔗</a></td>
           </tr>
           <tr>
             <td>Multiple + Prediction</td>
             <td style="text-align: right">23.4 ± 0.3</td>
             <td style="text-align: right">94 ± 2</td>
             <td style="text-align: right">702 ± 14</td>
-            <td style="text-align: right"><a href="https://drive.google.com/open?id=1jsqJQZKdSdHt-12n_03bDCB6ssnA97YJ">26 Objects</a></td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1jsqJQZKdSdHt-12n_03bDCB6ssnA97YJ">26 Objects 🔗</a></td>
           </tr>
         </tbody>
       </table>
@@ -206,70 +158,19 @@
         <iframe class="videoextern" src="https://drive.google.com/file/d/1HercG5puXAsyX0PJzz8_ScoR6ZEIqOT8/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
       </div>
 
-      <div id="cs-fast">
-        <div style="display: flex; align-items: center; flex-wrap: nowrap; overflow-y: scroll;">
-          <div v-for="i in length" ref="steps" style="min-width: 300px; margin: 5px;">
-            <p>
-              <b>Step {{ i - 1 }}</b> <small v-if="i - 1 == 0">(Image Measurement)</small><br>
-              Reward: {{ 1 }}<br>
-              Estimation: {{ estimated_rewards[i - 1][0] }} <span v-if="estimated_rewards[i - 1].length > 1">± {{ estimated_rewards[i - 1][1] }}</span>
-            </p>
+      <steps-carousel name="push-try-1" v-bind:length="4" v-bind:estimated_rewards="estimated_rewards['push-try-1']"></steps-carousel>
 
-            <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
-              <img :src="`assets/push-try-1/result-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
-              <img :src="`assets/push-try-1/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
-            </div>
-          </div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between">
-          <div>
-            <button class="button-left chevron left" v-on:click="setStep(current_step - 1, length)" :disabled="current_step <= 0"></button>
-          </div>
-        
-          <div>
-            <button class="button-right chevron right" v-on:click="setStep(current_step + 1, length)" :disabled="current_step >= length - 1"></button>
-          </div>
-        </div>
-      </div>
 
       <h5>b) Example for 5 actions</h5>
       <div class="videobereich">
         <iframe class="videoextern" src="https://drive.google.com/file/d/1z-LVGtoKAoKiclZW1Y2CVtvJshnLMm-J/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
       </div>
       
-      <div id="cs-slow">
-        <div style="display: flex; align-items: center; flex-wrap: nowrap; overflow-y: scroll;">
-          <div v-for="i in length" ref="steps" style="min-width: 300px; margin: 5px;">
-            <p>
-              <b>Step {{ i - 1 }}</b> <small v-if="i - 1 == 0">(Image Measurement)</small><br>
-              Reward: {{ 1 }}<br>
-              Estimation: {{ estimated_rewards[i - 1][0] }} <span v-if="estimated_rewards[i - 1].length > 1">± {{ estimated_rewards[i - 1][1] }}</span>
-            </p>
-
-            <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
-              <img :src="`assets/push-try-3/result-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
-              <img :src="`assets/push-try-3/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
-            </div>
-          </div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between">
-          <div>
-            <button class="button-left chevron left" v-on:click="setStep(current_step - 1, length)" :disabled="current_step <= 0"></button>
-          </div>
-        
-          <div>
-            <button class="button-right chevron right" v-on:click="setStep(current_step + 1, length)" :disabled="current_step >= length - 1"></button>
-          </div>
-        </div>
-      </div>
+      <steps-carousel name="push-try-3" v-bind:length="5" v-bind:estimated_rewards="estimated_rewards['push-try-3']"></steps-carousel>
       
 
       <!--h4>Optimize for Sum of Rewards</h4-->
-      
-
-
+  
       <footer class="site-footer">
         <span class="site-footer-credits">
           To explore our work even further:
@@ -280,8 +181,6 @@
           </ul>
         </span>
       </footer>
-
-      
     </main>
 
     <footer class="page-header" role="banner">
@@ -292,100 +191,38 @@
         Karlsruhe Institute of Technology (KIT)
       </p>
     </footer>
+    
+    <!-- Templates -->
+    <script type="text/x-template" id="steps-carousel-template">
+      <div>
+        <div style="display: flex; align-items: center; flex-wrap: nowrap; overflow-y: scroll;">
+          <div v-for="i in length" ref="steps" style="min-width: 300px; margin: 5px;">
+            <p>
+              <b>Step {{ i - 1 }}</b> <small v-if="i - 1 == 0">(Image Measurement)</small><br>
+              Reward: {{ 1 }}<br>
+              Estimation: {{ estimated_rewards[i - 1][0] }} <span v-if="estimated_rewards[i - 1].length > 1">± {{ estimated_rewards[i - 1][1] }}</span>
+            </p>
+  
+            <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
+              <img :src="`assets/${name}/result-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
+              <img :src="`assets/${name}/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1, length)"/>
+            </div>
+          </div>
+        </div>
+  
+        <div style="display: flex; justify-content: space-between">
+          <div>
+            <button class="button-left chevron left" v-on:click="setStep(current_step - 1, length)" :disabled="current_step <= 0"></button>
+          </div>
+        
+          <div>
+            <button class="button-right chevron right" v-on:click="setStep(current_step + 1, length)" :disabled="current_step >= length - 1"></button>
+          </div>
+        </div>
+      </div>
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script>
-      var setCurrentStep = function(new_step, length) {
-        var be = new_step < this.current_step ? 'instant' : 'smooth';
-        this.current_step = new_step;
-        var p = this.$refs.steps[this.current_step].parentNode;
-        var s = p.scrollLeftMax / (length - 1);
-        p.scrollTo({ left: s * new_step, behavior: be });
-      };
-
-      var cs_simple_example = new Vue({
-        el: '#cs-simple-example',
-        data: {
-          current_step: 0,
-          length: 10,
-          directory: 'simple-example-1',
-          estimated_rewards: [
-            [0.999],
-            [0.996, 0.001],
-            [0.996, 0.0],
-            [0.994, 0.003],
-            [0.991, 0.003],
-            [0.987, 0.001],
-            [0.981, 0.019],
-            [0.973, 0.006],
-            [0.985, 0.028],
-            [1.0],
-          ],
-          show: true,
-        },
-        methods: {
-          setStep: setCurrentStep
-        }
-      })
-
-      var cs_complex_manipulation = new Vue({
-        el: '#cs-complex-manipulation',
-        data: {
-          current_step: 0,
-          length: 7,
-          directory: 'complex-manipulation-1',
-          estimated_rewards: [
-            [0.975],
-            [0.972, 0.084],
-            [0.774],
-            [0.839],
-            [0.858, 0.015],
-            [0.788, 0.076],
-            [1.0],
-          ],
-          show: true,
-        },
-        methods: {
-          setStep: setCurrentStep
-        }
-      })
-
-      var cs_slow = new Vue({
-        el: '#cs-slow',
-        data: {
-          current_step: 0,
-          length: 5,
-          estimated_rewards: [
-            [0.3, 0.2],
-            [0.2, 0.1],
-            [0.2, 0.1],
-            [0.2, 0.1],
-            [0.2, 0.1],
-          ],
-          show: true,
-        },
-        methods: {
-          setStep: setCurrentStep
-        }
-      })
-
-      var cs_fast = new Vue({
-        el: '#cs-fast',
-        data: {
-          current_step: 0,
-          length: 4,
-          estimated_rewards: [
-            [0.3, 0.2],
-            [0.2, 0.1],
-            [0.2, 0.1],
-            [0.2, 0.1],
-          ],
-          show: true,
-        },
-        methods: {
-          setStep: setCurrentStep
-        }
-      })
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
