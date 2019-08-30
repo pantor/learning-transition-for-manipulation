@@ -237,8 +237,8 @@
             </p>
   
             <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
-              <img :src="`assets/${name}/result-${i - 1}.png`" v-on:click="setStep(i - 1, steps.length)"/>
-              <img :src="`assets/${name}/uncertainty-${i - 1}.png`" v-on:click="setStep(i - 1, steps.length)"/>
+              <img :src="`assets/${name}/result-${i - 1}.jpg`" v-on:click="setStep(i - 1, steps.length)"/>
+              <img :src="`assets/${name}/uncertainty-${i - 1}.jpg`" v-on:click="setStep(i - 1, steps.length)"/>
             </div>
           </div>
         </div>
