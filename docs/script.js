@@ -1,11 +1,3 @@
-var setCurrentStep = function(new_step, length) {
-    var be = new_step < this.current_step ? 'instant' : 'smooth';
-    this.current_step = new_step;
-    var p = this.$refs.steps[this.current_step].parentNode;
-    var s = p.scrollLeftMax / (length - 1);
-    p.scrollTo({ left: s * new_step, behavior: be });
-};
-
 Vue.component('steps-carousel', {
     props: ['name', 'steps'],
     template: '#steps-carousel-template',
@@ -15,7 +7,13 @@ Vue.component('steps-carousel', {
       }
     },
     methods: {
-      setStep: setCurrentStep
+      setStep: function(new_step, length) {
+        var be = new_step < this.current_step ? 'instant' : 'smooth';
+        this.current_step = new_step;
+        var p = this.$refs.steps[this.current_step].parentNode;
+        var s = p.scrollLeftMax / (length - 1);
+        $(p).animate({ scrollLeft: s * new_step }, 300);
+      }
     }
 });
 
