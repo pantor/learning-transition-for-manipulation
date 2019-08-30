@@ -71,32 +71,40 @@
       
 
       <h4>Simple Example</h4>
-
       <steps-carousel name="simple-example-1" v-bind:length="10" v-bind:estimated_rewards="estimated_rewards['simple-example-1']"></steps-carousel>
 
 
       <h4>Complex Manipulation (<a href="https://drive.google.com/open?id=1_C-UF_C_8Q4CJlExdXh57CzIQU20LHtY">Video</a>)</h4>
-
       <steps-carousel name="complex-manipulation-1" v-bind:length="7" v-bind:estimated_rewards="estimated_rewards['complex-manipulation-1']"></steps-carousel>
 
 
       <h4>Bin Picking</h4>
-
       <steps-carousel name="bin-picking-2" v-bind:length="7" v-bind:estimated_rewards="estimated_rewards['bin-picking-2']"></steps-carousel>
 
 
       <h3>Grasp Rate</h3>
 
-      <p>The grasp rate, given by the percentage of successful grasps, depends on various factors. We investigated the dependency of the grasp rate on the prediction step, detailed experimental results of each grasp attempts (N = 1080) can be found <a href="detail/grasp-rate.html">here</a>.</p>
+      <p>
+        The grasp rate, given by the percentage of successful grasps, depends on various factors.
+        We investigated the dependency of the grasp rate on the prediction step, detailed experimental results of each grasp attempts (N = 1080) can be found <a href="detail/grasp-rate.html">here</a>.
+        The experiment used the bin picking scenariou from above.
+      </p>
 
 
-      <h3 id="ycb-block-test-benchmark">YCB Block Test Benchmark</h2>
+      <h3 id="ycb-block-test-benchmark">YCB Blocks Benchmark</h2>
 
+      <p>
+        The <a href="http://www.ycbbenchmarks.com/protocols-and-benchmarks/">YCB Blocks Benchmark</a> is about grasping and placing as many objects as possible into another bin within 2 minutes.
+        The wooden cubes have a side length of 2.5cm.
+        The gripper needs to be above the other bin before dropping. 
+        The robotic benchmark - in contrast to the original medical test - allows for grasping multiple objects at once.
+      </p>
+      
       <center>
         <img src="assets/block-test.gif" />
       </center>
-
-      <p>The <a href="http://www.ycbbenchmarks.com/protocols-and-benchmarks/">YCB Block Test Benchmark</a> is about grasping and placing as many objects as possible into another bin within 2 minutes. The wooden cubes have a side length of 2.5cm. The gripper needs to be above the other bin before dropping. The robotic benchmark - in contrast to the original medical test - allows for grasping multiple objects at once.</p>
+      
+      
 
       <table>
         <thead>
@@ -147,12 +155,14 @@
         </tbody>
       </table>
 
-      <p>Detailed experimental results can be found <a href="detail/block-test.html">here</a>.</p>
+      <p>
+        Detailed experimental results can be found <a href="detail/block-test.html">here</a>.
+      </p>
 
 
       <h3>Planning Ahead</h2>
 
-      <h4>Optimize for Fewest Actions</h4>
+      <!--h4>Optimize for Fewest Actions</h4-->
 
       <center>
         <img src="assets/planning-configuration-sm.jpg" style="max-width: 640px;" />
