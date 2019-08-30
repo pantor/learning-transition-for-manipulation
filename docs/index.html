@@ -41,12 +41,12 @@
 
     <main id="content" class="main-content" role="main">
       <center>
-        <h4>Abstract</h4>
+        <h3>Abstract</h3>
         <p class="text">
           Planning within robotic tasks usually involves a transition model of the environment’s state, which are often in a high-dimensional visual space. We explicitly learn a transition model using the Bicycle GAN architecture, capturing the stochastic process of the real world and thus allowing for uncertainty estimation. Then, we apply this approach to the real-world task of bin picking, where a robot should empty a bin by grasping and shifting objects as fast as possible. The model is trained with around \num{30000} pairs of real-world images before and after a given object manipulation. Such a model allows for two important skills: First, for applications with flange-mounted cameras, the picks per hours can be increased by skipping the recording of images. Second, we use the model for planning ahead while emptying the bin, minimizing either the number of actions or maximizing the estimated reward over the next $N$ actions. We show both advantages with real-robot experiments and set a new state-of-the-art result in the YCB block test.
         </p>
   
-        <h4>Conference Video</h4>
+        <h3>Conference Video</h3>
         <div class="videobereich">
           <iframe class="videoextern" src="https://drive.google.com/file/d/1h5FS_Q2BolOuQupU4NfN2wpcbErKNix9/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
         </div>
@@ -55,8 +55,8 @@
 
       <hr style="margin: 5em; margin-top: 6em;">
 
+
       <h2>Supplementary Material</h2>
-      
       <p class="text">
         Below, we present supplementary material for our publication submitted to ICRA 2020.
         This includes more visual examples of the transition model (as predicted depth images with corresponding uncertainties), more videos and more detailed experimental results.
@@ -65,7 +65,6 @@
        
 
       <h3>1. Iterative Prediction</h3>
-      
       <p class="text">
         As a reminder, we focus on the task of bin picking using a flange-mounted depth camera.
         The robot should empty the bin using grasping and pre-grasping manipulation (like shifting and pushing) as fast as possible.
@@ -111,6 +110,17 @@
       <center>
         <img src="assets/block-test.gif" />
       </center>
+      <p class="text" style="margin-bottom: 3em;">
+        <b>Fig. 1:</b> Our setup for the YCB Blocks benchmark.
+        Note that the Franka Panda robotic arm has a max. velocity of 1.7 m/s and max. acceleration of 13 m/s², so there is room for improvement by using a faster robot.
+      </p>
+
+      <p class="text">
+        <b>Tab. 1:</b> The summarized results of the YCB Blocks benchmark.
+        We evaluated two different settings:
+        First, single or multiple denotes if the robot was trained to grasp multiple objects at once via semantic grasping.
+        Second, prediction uses the transition model to skip some image mesaurements.
+      </p>
       
       
       <center>
@@ -163,25 +173,24 @@
           </tbody>
         </table>
       </center>
-      
 
       <p class="experiment-results">
         Detailed experimental results of each try can be found <a href="detail/block-test.html">here</a>.
       </p>
 
 
-      <h3>4. Planning Ahead</h2>
+      <h3>4. Planning Ahead</h3>
 
       <!--h4>Optimize for Fewest Actions</h4-->
 
       <center>
         <img src="assets/planning-configuration-sm.jpg" style="max-width: 640px;" />
-        <p>
-          <b>Fig. 2:</b> We showed for this example configuration of three cubes in a row, the robot is able to reduce the average number of actions by 30% by planning a few steps ahead.
-        </p>
       </center>
+      <p>
+        <b>Fig. 2:</b> We showed for this example configuration of three cubes in a row that the robot is able to reduce the average number of actions by 30% by planning a few steps ahead.
+      </p>
 
-      <h4>4.1 Example for 4 actions</h5>
+      <h4>4.1 Example for 4 actions</h4>
       <div class="videobereich">
         <iframe class="videoextern" src="https://drive.google.com/file/d/1HercG5puXAsyX0PJzz8_ScoR6ZEIqOT8/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -189,7 +198,7 @@
       <steps-carousel name="push-try-1" v-bind:steps="push_try_1"></steps-carousel>
 
 
-      <h4>4.2 Example for 5 actions</h5>
+      <h4>4.2 Example for 5 actions</h4>
       <div class="videobereich">
         <iframe class="videoextern" src="https://drive.google.com/file/d/1z-LVGtoKAoKiclZW1Y2CVtvJshnLMm-J/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
       </div>
