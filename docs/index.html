@@ -42,58 +42,66 @@
     <main id="content" class="main-content" role="main">
       <center>
         <h4>Abstract</h4>
-        <p>
+        <p class="text">
           Planning within robotic tasks usually involves a transition model of the environment’s state, which are often in a high-dimensional visual space. We explicitly learn a transition model using the Bicycle GAN architecture, capturing the stochastic process of the real world and thus allowing for uncertainty estimation. Then, we apply this approach to the real-world task of bin picking, where a robot should empty a bin by grasping and shifting objects as fast as possible. The model is trained with around \num{30000} pairs of real-world images before and after a given object manipulation. Such a model allows for two important skills: First, for applications with flange-mounted cameras, the picks per hours can be increased by skipping the recording of images. Second, we use the model for planning ahead while emptying the bin, minimizing either the number of actions or maximizing the estimated reward over the next $N$ actions. We show both advantages with real-robot experiments and set a new state-of-the-art result in the YCB block test.
         </p>
+  
+        <h4>Conference Video</h4>
+        <div class="videobereich">
+          <iframe class="videoextern" src="https://drive.google.com/file/d/1zpQiE33D4JNLQ1kD8PeW4H1DP4ddwY1a/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
+        </div>
       </center>
+      
 
-      <h4>Conference Video</h4>
-      <div class="videobereich">
-        <iframe class="videoextern" src="https://drive.google.com/file/d/1zpQiE33D4JNLQ1kD8PeW4H1DP4ddwY1a/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
-      </div>
-
-      <hr>
+      <hr style="margin: 5em; margin-top: 6em;">
 
       <h2>Supplementary Material</h2>
       
-      Below, we present supplementary material for our publication submitted to ICRA 2020.
-      This includes more visual examples of the transition model (as predicted depth images with corresponding uncertainties), more videos and more detailed experimental results.
-      We follow the structure of the experimental evaluation of the paper and the conference video above.
-      
+      <p class="text">
+        Below, we present supplementary material for our publication submitted to ICRA 2020.
+        This includes more visual examples of the transition model (as predicted depth images with corresponding uncertainties), more videos and more detailed experimental results.
+        We follow the structure of the experimental evaluation of the paper and the conference video above.
+      </p>
+       
 
-      <h3>Iterative Prediction</h3>
+      <h3>1. Iterative Prediction</h3>
       
-      As a reminder, we focus on the task of bin picking using a flange-mounted depth camera.
-      The robot should empty the bin using grasping and pre-grasping manipulation (like shifting and pushing) as fast as possible.
-      The transition model predicts the depth image after a given action and its corresponding reward.
-      It was trained on around 30000 pairs of images before and after a manipulation action, using a dataset with three different object types.
-      By applying the transition model iteratively, the robot is able to plan multiple actions based on a single image.
-      
+      <p class="text">
+        As a reminder, we focus on the task of bin picking using a flange-mounted depth camera.
+        The robot should empty the bin using grasping and pre-grasping manipulation (like shifting and pushing) as fast as possible.
+        The transition model predicts the depth image after a given action and its corresponding reward.
+        It was trained on around 30000 pairs of images before and after a manipulation action, using a dataset with three different object types.
+        By applying the transition model iteratively, the robot is able to plan multiple actions based on a single image.
+      </p>
 
-      <h4>Simple Example</h4>
+      <h4>1.1 Simple Example</h4>
       <steps-carousel name="simple-example-1" v-bind:length="10" v-bind:estimated_rewards="estimated_rewards['simple-example-1']"></steps-carousel>
 
 
-      <h4>Complex Manipulation (<a href="https://drive.google.com/open?id=1_C-UF_C_8Q4CJlExdXh57CzIQU20LHtY">Video</a>)</h4>
+      <h4>1.2 Complex Manipulation (<a href="https://drive.google.com/open?id=1_C-UF_C_8Q4CJlExdXh57CzIQU20LHtY">Video</a>)</h4>
       <steps-carousel name="complex-manipulation-1" v-bind:length="7" v-bind:estimated_rewards="estimated_rewards['complex-manipulation-1']"></steps-carousel>
 
 
-      <h4>Bin Picking</h4>
+      <h4>1.3 Bin Picking</h4>
       <steps-carousel name="bin-picking-2" v-bind:length="7" v-bind:estimated_rewards="estimated_rewards['bin-picking-2']"></steps-carousel>
 
 
-      <h3>Grasp Rate</h3>
+      <h3>2. Grasp Rate</h3>
 
-      <p>
+      <p class="text">
         The grasp rate, given by the percentage of successful grasps, depends on various factors.
-        We investigated the dependency of the grasp rate on the prediction step, detailed experimental results of each grasp attempts (N = 1080) can be found <a href="detail/grasp-rate.html">here</a>.
-        The experiment used the bin picking scenariou from above.
+        We investigated the dependency of the grasp rate on the prediction step.
+        The experiment used the bin picking scenarious from above.
+      </p>
+
+      <p class="experiment-results">
+        Detailed experimental results of each grasp (N = 1080) can be found <a href="detail/grasp-rate.html">here</a>.
       </p>
 
 
-      <h3 id="ycb-block-test-benchmark">YCB Blocks Benchmark</h2>
+      <h3 id="ycb-block-test-benchmark">3. YCB Blocks Benchmark</h2>
 
-      <p>
+      <p class="text">
         The <a href="http://www.ycbbenchmarks.com/protocols-and-benchmarks/">YCB Blocks Benchmark</a> is about grasping and placing as many objects as possible into another bin within 2 minutes.
         The wooden cubes have a side length of 2.5cm.
         The gripper needs to be above the other bin before dropping. 
@@ -105,62 +113,64 @@
       </center>
       
       
+      <center>
+        <table style="margin-top: 2em; margin-bottom: 2em;">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Objects</th>
+              <th>Grasp Rate [%]</th>
+              <th>Picks Per Hour (PPH)</th>
+              <th>Video</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Random</td>
+              <td style="text-align: right">2.2 ± 0.7</td>
+              <td style="text-align: right">13 ± 4</td>
+              <td style="text-align: right">66 ± 20</td>
+              <td style="text-align: right"><a href="https://drive.google.com/open?id=1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ">1 Object 🔗</a></td>
+            </tr>
+            <tr>
+              <td>Single</td>
+              <td style="text-align: right">12.8 ± 0.3</td>
+              <td style="text-align: right">97 ± 2</td>
+              <td style="text-align: right">384 ± 10</td>
+              <td style="text-align: right"><a href="https://drive.google.com/open?id=1nM04orizO_9r_hvEoq3BkA812kTYnFzo">13 Objects 🔗</a></td>
+            </tr>
+            <tr>
+              <td>Single + Prediction</td>
+              <td style="text-align: right">16.4 ± 0.5</td>
+              <td style="text-align: right">94 ± 2</td>
+              <td style="text-align: right">492 ± 14</td>
+              <td style="text-align: right"><a href="https://drive.google.com/open?id=1pn0IlyM1ND6t1zs2kNFoWa2VQBZ4tB3M">15 Objects 🔗</a></td>
+            </tr>
+            <tr>
+              <td>Multiple</td>
+              <td style="text-align: right">20.4 ± 1.0</td>
+              <td style="text-align: right">96 ± 2</td>
+              <td style="text-align: right">612 ± 29</td>
+              <td style="text-align: right"><a href="https://drive.google.com/open?id=1fwwd4ca5Z-UxAccsfPeQ92qdTENn36mu">20 Objects 🔗</a></td>
+            </tr>
+            <tr>
+              <td>Multiple + Prediction</td>
+              <td style="text-align: right">23.4 ± 0.3</td>
+              <td style="text-align: right">94 ± 2</td>
+              <td style="text-align: right">702 ± 14</td>
+              <td style="text-align: right"><a href="https://drive.google.com/open?id=1jsqJQZKdSdHt-12n_03bDCB6ssnA97YJ">26 Objects 🔗</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </center>
+      
 
-      <table>
-        <thead>
-          <tr>
-            <th>Method</th>
-            <th>Objects</th>
-            <th>Grasp Rate [%]</th>
-            <th>Picks Per Hour (PPH)</th>
-            <th>Video</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Random</td>
-            <td style="text-align: right">2.2 ± 0.7</td>
-            <td style="text-align: right">13 ± 4</td>
-            <td style="text-align: right">66 ± 20</td>
-            <td style="text-align: right"><a href="https://drive.google.com/open?id=1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ">1 Object 🔗</a></td>
-          </tr>
-          <tr>
-            <td>Single</td>
-            <td style="text-align: right">12.8 ± 0.3</td>
-            <td style="text-align: right">97 ± 2</td>
-            <td style="text-align: right">384 ± 10</td>
-            <td style="text-align: right"><a href="https://drive.google.com/open?id=1nM04orizO_9r_hvEoq3BkA812kTYnFzo">13 Objects 🔗</a></td>
-          </tr>
-          <tr>
-            <td>Single + Prediction</td>
-            <td style="text-align: right">16.4 ± 0.5</td>
-            <td style="text-align: right">94 ± 2</td>
-            <td style="text-align: right">492 ± 14</td>
-            <td style="text-align: right"><a href="https://drive.google.com/open?id=1pn0IlyM1ND6t1zs2kNFoWa2VQBZ4tB3M">15 Objects 🔗</a></td>
-          </tr>
-          <tr>
-            <td>Multiple</td>
-            <td style="text-align: right">20.4 ± 1.0</td>
-            <td style="text-align: right">96 ± 2</td>
-            <td style="text-align: right">612 ± 29</td>
-            <td style="text-align: right"><a href="https://drive.google.com/open?id=1fwwd4ca5Z-UxAccsfPeQ92qdTENn36mu">20 Objects 🔗</a></td>
-          </tr>
-          <tr>
-            <td>Multiple + Prediction</td>
-            <td style="text-align: right">23.4 ± 0.3</td>
-            <td style="text-align: right">94 ± 2</td>
-            <td style="text-align: right">702 ± 14</td>
-            <td style="text-align: right"><a href="https://drive.google.com/open?id=1jsqJQZKdSdHt-12n_03bDCB6ssnA97YJ">26 Objects 🔗</a></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        Detailed experimental results can be found <a href="detail/block-test.html">here</a>.
+      <p class="experiment-results">
+        Detailed experimental results of each try can be found <a href="detail/block-test.html">here</a>.
       </p>
 
 
-      <h3>Planning Ahead</h2>
+      <h3>4. Planning Ahead</h2>
 
       <!--h4>Optimize for Fewest Actions</h4-->
 
@@ -171,7 +181,7 @@
         </p>
       </center>
 
-      <h5>a) Example for 4 actions</h5>
+      <h4>4.1 Example for 4 actions</h5>
       <div class="videobereich">
         <iframe class="videoextern" src="https://drive.google.com/file/d/1HercG5puXAsyX0PJzz8_ScoR6ZEIqOT8/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -179,7 +189,7 @@
       <steps-carousel name="push-try-1" v-bind:length="4" v-bind:estimated_rewards="estimated_rewards['push-try-1']"></steps-carousel>
 
 
-      <h5>b) Example for 5 actions</h5>
+      <h4>4.2 Example for 5 actions</h5>
       <div class="videobereich">
         <iframe class="videoextern" src="https://drive.google.com/file/d/1z-LVGtoKAoKiclZW1Y2CVtvJshnLMm-J/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -206,7 +216,8 @@
 
       <p>
         Intelligent Process Automation and Robotics Lab (IPR)<br>
-        Karlsruhe Institute of Technology (KIT)
+        Karlsruhe Institute of Technology (KIT)<br>
+        2019
       </p>
     </footer>
     
