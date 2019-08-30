@@ -10,9 +10,10 @@ Vue.component('steps-carousel', {
       setStep: function(new_step, length) {
         var be = new_step < this.current_step ? 'instant' : 'smooth';
         this.current_step = new_step;
-        var p = this.$refs.steps[this.current_step].parentNode;
-        var s = p.scrollLeftMax / (length - 1);
-        $(p).animate({ scrollLeft: s * new_step }, 300);
+        var content = this.$refs.steps[this.current_step];
+        var container = content.parentNode;
+        var step_size = (container.scrollWidth - content.scrollWidth) / (length);
+        $(container).animate({ scrollLeft: step_size * new_step }, 300);
       }
     }
 });
