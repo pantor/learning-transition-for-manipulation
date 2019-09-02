@@ -1,0 +1,13 @@
+flask
+flask-socketio
+imageio
+numpy
+opencv-python
+pymongo
+pandas
+pillow
+requests
+scipy
+tensorflow-gpu==1.12
+tensorflow_probability==0.4
+tqdm

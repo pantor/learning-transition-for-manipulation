@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <title>Robot Learning Live</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <script src="{{ url_for('static', filename='assets/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vue.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vue-resource.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/socket.io.min.js') }}"></script>
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Robot Learning Live</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="live">Live</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="https://gitlab.ipr.kit.edu/berscheid/ros_bin_picking">GitLab</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid mt-2 mb-2">
+      <div class="row">
+        <div class="col-12 col-lg-8">
+          <div class="card card-border text-light mt-2 mb-2 card-live-image ml-auto mr-auto" :class="{ 'bg-light': last_action.attempt, 'bg-success': last_action.reward > 0, 'bg-danger': last_action.reward <= 0 }">
+            <img class="card-img-top" :src="`api/image/${last_episode.id}?database=${database}&bin=${draw_bin}&suffix=${suffix}&pose=${JSON.stringify(last_action)}`">
+            <div class="card-img-overlay">
+              <p class="card-title">[[ last_action.id ]]</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <div class="card text-light bg-dark mt-2 mb-2">
+            <div class="card-body">
+              <h5 class="card-title">[[ database ]]</h5>
+
+              <select class="custom-select mr-sm-2" v-model="database" v-on:change="loadLastAction">
+                <option :value="d" v-for="d in database_list">[[ d ]]</option>
+              </select>
+
+              <hr>
+
+              <h6 class="card-title">ID [[ last_episode.id ]]</h6>
+
+              <table class="table table-sm table-striped">
+                <tr>
+                  <th>Reward</th>
+                  <td>[[ last_action.reward ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Did Collide</th>
+                  <td>[[ last_action.collision ]]</td>
+                </tr>
+
+                <tr v-if="last_action.pose">
+                  <th>Pose X | Y | Z</th>
+                  <td>[[ last_action.pose.x | round(4) ]] | [[ last_action.pose.y | round(4) ]] | [[ last_action.pose.z | round(4) ]]</td>
+                </tr>
+
+                <tr v-if="last_action.pose">
+                  <th>Pose A | B | C</th>
+                  <td>[[ last_action.pose.a | round(4) ]] | [[ last_action.pose.b | round(4) ]] | [[ last_action.pose.c | round(4) ]]</td>
+                </tr>
+
+                <tr v-if="last_action.pose">
+                  <th>Pose D</th>
+                  <td>[[ last_action.pose.d | round(4) ]]</td>
+                </tr>
+
+                <tr v-if="last_action.final_pose">
+                  <th>Final Pose X | Y | Z</th>
+                  <td>[[ last_action.final_pose.x | round(4) ]] | [[ last_action.final_pose.y | round(4) ]] | [[ last_action.final_pose.z | round(4) ]]</td>
+                </tr>
+
+                <tr v-if="last_action.final">
+                  <th>Final Pose A | B | C</th>
+                  <td>[[ last_action.final_pose.a | round(4) ]] | [[ last_action.final_pose.b | round(4) ]] | [[ last_action.final_pose.c | round(4) ]]</td>
+                </tr>
+
+                <tr v-if="last_action.final">
+                  <th>Final Pose D</th>
+                  <td>[[ last_action.final_pose.d | round(4) ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Safe</th>
+                  <td>[[ last_action.safe ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Estimated Reward</th>
+                  <td>[[ last_action.estimated_reward | round(4) ]] <span v-if="last_action.estimated_reward_std">± [[ last_action.estimated_reward_std | round(4) ]]</span></td>
+                </tr>
+
+                <tr>
+                  <th>Method</th>
+                  <td>[[ last_action.method ]]</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='live.js') }}"></script>
+  </div>
+</body>
+</html>

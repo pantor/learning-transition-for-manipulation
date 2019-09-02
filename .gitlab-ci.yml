@@ -1,0 +1,87 @@
+image: ros:kinetic-ros-base
+
+
+before_script:
+  - apt update && apt -y install software-properties-common
+  - apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C8B3A55A6F3EFCDE
+  - add-apt-repository ppa:jonathonf/python-3.6
+  - add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main" -u
+  - apt update
+  - apt-get -y install python3.6 python3.6-dev python3.6-venv wget
+
+  - update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
+  - update-alternatives --config python3
+
+  # Install PIP
+  - ln -s /usr/bin/python3.6 /usr/local/bin/python3
+  - wget https://bootstrap.pypa.io/get-pip.py
+  - python3 get-pip.py
+
+  - apt -y install build-essential git gcc-multilib g++-multilib libxmu-dev libxi-dev libglfw3-dev librealsense2-dev
+
+  # Install Franka ROS packages
+  - apt-get -y install ros-kinetic-libfranka ros-kinetic-franka-ros
+
+
+build:
+  stage: build
+  script:
+    - python3 -m pip install cmake
+    - python3 -m pip install -U rosdep rosinstall_generator wstool rosinstall six vcstools empy
+
+    # EnsensoSDK
+    - wget https://download.ensenso.com/s/ensensosdk/download?files=ensenso-sdk-2.2.138-x64.deb -O ensenso-sdk-2.2.138-x64.deb -q
+    - dpkg -i ensenso-sdk-2.2.138-x64.deb
+
+    # Eigen3
+    - wget http://bitbucket.org/eigen/eigen/get/default.tar.bz2 -O eigen.tar.bz2 -q
+    - tar -xf eigen.tar.bz2
+    - cd $(find . -name 'eigen-eigen-*')
+    - mkdir build && cd build
+    - cmake ..
+    - make -j4
+    - make install
+    - cd $CI_PROJECT_DIR
+
+    # pybind11
+    - git clone https://github.com/pybind/pybind11.git
+    - cd pybind11
+    - mkdir build && cd build
+    - cmake -DPYBIND11_TEST=OFF ..
+    - make -j4
+    - make install
+    - cd $CI_PROJECT_DIR
+
+    # Make catkin workspace
+    - mkdir -p catkin_ws/src
+    - cd catkin_ws/src
+    - catkin_init_workspace
+    - cd ..
+    - catkin_make
+    - source devel/setup.bash
+    - cd src
+    - ln -s ../../ bin_picking
+    - cd ../
+    - catkin_make
+
+  artifacts:
+    paths:
+      - catkin_ws/devel/lib/*.so
+    expire_in: 1 day
+
+
+test:
+  stage: test
+  script:
+    # Set python path
+    - python3 -m pip install imageio numpy pandas pillow opencv-python pylint pytest tensorflow==1.12 mypy requests scipy tqdm loguru --user
+
+    - export PYTHONPATH="$CI_PROJECT_DIR/scripts/:$CI_PROJECT_DIR/catkin_ws/devel/lib/"
+
+    - python3 test/test_action.py
+    - python3 test/test_image.py
+
+  artifacts:
+    paths:
+      - test/documents/*.png
+    expire_in: 1 week

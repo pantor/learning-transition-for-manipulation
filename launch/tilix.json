@@ -1,0 +1,51 @@
+{
+    "child": {
+        "child1": {
+            "child1": {
+                "directory": "Documents/catkin_ws",
+                "height": 377,
+                "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                "readOnly": false,
+                "synchronizedInput": true,
+                "type": "Terminal",
+                "uuid": "dae178d9-d195-4872-80ab-4427eb4f531f",
+                "width": 833
+            },
+            "child2": {
+                "directory": "Documents/bin_picking",
+                "height": 377,
+                "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                "readOnly": false,
+                "synchronizedInput": true,
+                "type": "Terminal",
+                "uuid": "39af51f6-43e5-4c48-81ee-0bb9213cd25f",
+                "width": 831
+            },
+            "orientation": 0,
+            "position": 50,
+            "ratio": 0.5,
+            "type": "Paned"
+        },
+        "child2": {
+            "directory": "Documents/catkin_ws",
+            "height": 375,
+            "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+            "readOnly": false,
+            "synchronizedInput": true,
+            "type": "Terminal",
+            "uuid": "d3797b0c-b308-40ba-9419-a4e6f80a7701",
+            "width": 1666
+        },
+        "orientation": 1,
+        "position": 50,
+        "ratio": 0.5,
+        "type": "Paned"
+    },
+    "height": 1400,
+    "name": "Bin Picking",
+    "synchronizedInput": false,
+    "type": "Session",
+    "uuid": "ed36edd4-cb3d-4faf-97c7-a70ca3e937a1",
+    "version": "1.0",
+    "width": 1200
+}

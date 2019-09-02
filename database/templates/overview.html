@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <title>Robot Learning Database</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <script src="{{ url_for('static', filename='assets/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vue.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vue-resource.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/socket.io.min.js') }}"></script>
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Robot Learning Database</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="live">Live</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="https://gitlab.ipr.kit.edu/berscheid/ros_bin_picking">GitLab</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid mt-2 mb-2">
+      <div class="row">
+        <div class="col" id="image-container">
+          <div class="d-flex flex-wrap">
+            <div class="flex-element" :id="index" :style="{ width: 100 / column_count + '%' }" v-for="(entry, index) in page_episodes" @click="setDetailId(entry.id)" >
+              <div class="card card-border" :class="{ 'text-light': entry.id == current_id, 'text-muted': entry.id != current_id, 'bg-light': entry.attempt, 'bg-success': lastAction(entry).reward > 0, 'bg-danger': lastAction(entry).reward <= 0 }">
+                <img class="card-img-top" :src="`api/image/${entry.id}?database=${database}&bin=${draw_bin}&suffix=${suffix}`">
+                <div class="card-img-overlay d-flex flex-column justify-content-between">
+                  <p class="card-title">[[ entry.id ]]</p>
+                  <span>[[ lastAction(entry).type ]]: [[ lastAction(entry).reward | round(3) ]]</span>
+                </div>
+
+                <img v-if="show_second_image" class="card-img-top" :src="`api/image/${entry.id}?database=${database}&bin=${draw_bin}&suffix=ed-after`">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="card text-light bg-dark mt-2 mb-2">
+            <div class="card-body">
+              <h5 class="card-title">[[ database ]]</h5>
+
+              <dl class="row">
+                <dt class="col-sm-5">Total</dt>
+                <dd class="col-sm-7">[[ stats.total ]]</dd>
+
+                <dt class="col-sm-5">Reward</dt>
+                <dd class="col-sm-7">[[ stats.reward | round(3) ]]</dd>
+              </dl>
+
+              <select class="custom-select mr-sm-2" v-model="database" @change="loadDatabase">
+                <option :value="d" v-for="d in database_list">[[ d ]]</option>
+              </select>
+
+              <div v-show="show_settings">
+                <hr>
+
+                <div class="input-group mt-2 mb-2">
+                  <input type="number" class="form-control" v-model="column_count" @change="updatePage">
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" v-model="draw_bin" true-value="1" false-value="0" @change="updatePage">
+                  <label class="form-check-label" for="inlineCheckbox1">Draw Bin</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="-1" v-model="show_second_image" @change="loadDatabase">
+                  <label class="form-check-label" for="inlineCheckbox2">Show second After Image</label>
+                </div>
+
+                <div class="mb-2">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="-1" v-model="filter.reward" @change="loadDatabase">
+                    <label class="form-check-label" for="inlineRadio1">Show All</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="0" v-model="filter.reward" @change="loadDatabase">
+                    <label class="form-check-label" for="inlineRadio3">👎</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1" v-model="filter.reward" @change="loadDatabase">
+                    <label class="form-check-label" for="inlineRadio2">👍</label>
+                  </div>
+                </div>
+
+                <b>Id</b>
+                <input type="text" class="form-control" v-model="filter.id" @change="loadDatabase">
+
+                <b>Final D</b>
+                <div class="input-group">
+                  <input type="number" step="0.001" min="0" max="0.1" class="form-control" v-model="filter.final_d_lower" @change="loadDatabase">
+                  <input type="number" step="0.001" min="0" max="0.1" class="form-control" v-model="filter.final_d_upper" @change="loadDatabase">
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer d-flex justify-content-between align-items-start">
+              <div class="btn-group">
+                <button class="btn btn-dark" @click="setPage(0)" :disabled="page_index == 0">&laquo;</button>
+                <button class="btn btn-dark" @click="prevPage()" :disabled="page_index == 0">&lsaquo;</button>
+                <button class="btn btn-link" disabled>[[ page_index + 1 ]] / [[ page_count ]]</button>
+                <button class="btn btn-dark" @click="nextPage()" :disabled="page_index == page_count - 1">&rsaquo;</button>
+                <button class="btn btn-dark" @click="setPage(page_count - 1)" :disabled="page_index == page_count - 1">&raquo;</button>
+              </div>
+
+              <button class="btn btn-outline-dark" @click='show_settings = !show_settings'>🔎</button>
+            </div>
+          </div>
+
+          <div class="card text-light bg-dark mt-2">
+            <div class="card-body" v-if="detail && detail.id">
+              <h6 class="card-title">ID [[ detail.id ]]</h6>
+
+              <div class="d-flex justify-content-between mb-2">
+                <select class="custom-select mr-sm-2" v-model="suffix" @change="updatePage">
+                  <option v-for="(data, suffix) in lastAction(detail).images" v-bind:value="suffix">
+                    [[ suffix ]]
+                  </option>
+                </select>
+
+                <button class="btn btn-danger " @click="deleteEpisode()">Delete</button>
+              </div>
+
+              <table class="table table-sm table-striped">
+                <tr>
+                  <th>Actions</th>
+                  <td>[[ detail.actions.length ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Reward</th>
+                  <td>[[ lastAction(detail).reward ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Estimated Reward</th>
+                  <td>[[ lastAction(detail).estimated_reward | round(4) ]] <span v-if="lastAction(detail).estimated_reward_std">± [[ lastAction(detail).estimated_reward_std | round(4) ]]</span></td>
+                </tr>
+
+                <tr>
+                  <th>Method</th>
+                  <td>[[ lastAction(detail).method ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Safe</th>
+                  <td>[[ lastAction(detail).safe ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Collision</th>
+                  <td>[[ lastAction(detail).collision ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Pose X | Y | Z</th>
+                  <td>[[ lastAction(detail).pose.x | round(4) ]] | [[ lastAction(detail).pose.y | round(4) ]] | [[ lastAction(detail).pose.z | round(4) ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Pose A | B | C</th>
+                  <td>[[ lastAction(detail).pose.a | round(4) ]] | [[ lastAction(detail).pose.b | round(4) ]] | [[ lastAction(detail).pose.c | round(4) ]]</td>
+                </tr>
+
+                <tr>
+                  <th>Pose D</th>
+                  <td>[[ lastAction(detail).pose.d | round(4) ]]</td>
+                </tr>
+
+                <tr v-if="lastAction(detail).final_pose">
+                  <th>Final Pose X | Y | Z</th>
+                  <td>[[ lastAction(detail).final_pose.x | round(4) ]] | [[ lastAction(detail).final_pose.y | round(4) ]] | [[ lastAction(detail).final_pose.z | round(4) ]]</td>
+                </tr>
+
+                <tr v-if="lastAction(detail).final_pose">
+                  <th>Final Pose A | B | C</th>
+                  <td>[[ lastAction(detail).final_pose.a | round(4) ]] | [[ lastAction(detail).final_pose.b | round(4) ]] | [[ lastAction(detail).final_pose.c | round(4) ]]</td>
+                </tr>
+
+                <tr v-if="lastAction(detail).final_pose">
+                  <th>Final Pose D</th>
+                  <td>[[ lastAction(detail).final_pose.d | round(4) ]]</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='overview.js') }}"></script>
+  </div>
+</body>
+</html>
