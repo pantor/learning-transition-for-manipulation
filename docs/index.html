@@ -41,9 +41,15 @@
 
     <main id="content" class="main-content" role="main">
       <center>
-        <h3>Abstract</h3>
+        <h3>Abstract <small>(Draft)</small></h3>
         <p class="text">
-          Planning within robotic tasks usually involves a transition model of the environment’s state, which are often in a high-dimensional visual space. We explicitly learn a transition model using the Bicycle GAN architecture, capturing the stochastic process of the real world and thus allowing for uncertainty estimation. Then, we apply this approach to the real-world task of bin picking, where a robot should empty a bin by grasping and shifting objects as fast as possible. The model is trained with around \num{30000} pairs of real-world images before and after a given object manipulation. Such a model allows for two important skills: First, for applications with flange-mounted cameras, the picks per hours can be increased by skipping the recording of images. Second, we use the model for planning ahead while emptying the bin, minimizing either the number of actions or maximizing the estimated reward over the next $N$ actions. We show both advantages with real-robot experiments and set a new state-of-the-art result in the YCB block test.
+          Planning within robotic tasks usually involves a transition model of the environment’s state, which are often in a high-dimensional visual space.
+          We explicitly learn a transition model using the Bicycle GAN architecture, capturing the stochastic process of the real world and thus allowing for uncertainty estimation.
+          Then, we apply this approach to the real-world task of bin picking, where a robot should empty a bin using grasping and pre-grasping manipulation as fast as possible.
+          The model is trained with around 34000 pairs of real-world images before and after a given object manipulation.
+          Such a model allows for two important skills: First, for applications with flange-mounted cameras, the picks per hours (PPH) can be increased by skipping the measurement of images.
+          Second, we use the model for planning ahead and optimizing rewards of multiple steps, e.g. to minimize the number of actions for emptying the bin.
+          We show both advantages with real-robot experiments and set a new state-of-the-art result in the Box and Blocks test with 702±14 PPH.
         </p>
   
         <h3>Conference Video</h3>
@@ -60,25 +66,26 @@
       <p class="text">
         Below, we present supplementary material for our publication submitted to ICRA 2020.
         This includes more visual examples of the transition model (as predicted depth images with corresponding uncertainties), more videos and more detailed experimental results.
-        We follow the structure of the experimental evaluation of the paper and the conference video above.
+        We follow the structure of the experimental evaluation in the paper and the conference video above.
       </p>
        
 
       <h3>1. Iterative Prediction</h3>
       <p class="text">
-        As a reminder, we focus on the task of bin picking using a flange-mounted depth camera.
+        To recap the paper's introduction, we focus on the task of bin picking using a flange-mounted depth camera.
         The robot should empty the bin using grasping and pre-grasping manipulation (like shifting and pushing) as fast as possible.
-        The transition model predicts the depth image after a given action and its corresponding reward.
-        It was trained on around 30000 pairs of images before and after a manipulation action, using a dataset with three different object types.
-        By applying the transition model iteratively, the robot is able to plan multiple actions based on a single image.
+        We proposed and implemented a transition model, which is able to predict the depth image after a given action and its corresponding reward.
+        It was trained on around 34000 pairs of real-world images before and after a manipulation action, using a dataset with three different object types.
+        By applying the transition model iteratively, the robot is then able to plan multiple actions based on a single image.
       </p>
 
       <p class="text">
-        Below are three examples seen in the conference video.
-        Step 0 is the measured image, all following images are predictions.
-        To each step, we give the measured reward after execution, the estimated reward before execution and the action type.
-        We use thee grasping actions with different pre-shaped gripper widths (type 0, 1, and 2), one shifting action (type 3) and a bin empty action (type 4).
+        Below, the predicted images of the three examples from the conference video are shown.
+        We denote step 0 as the measured image with zero uncertainty; all following images are predictions.
+        To each step, the measured reward after execution, the estimated reward and its propagated uncertainty before execution and the action type is given.
+        We use three grasping actions with different pre-shaped gripper widths (type 0, 1, and 2), one shifting action (type 3) and a bin empty action (type 4).
         Within the depth images (top) and the uncertainty image (bottom), the gripper is sketched (white) with a bounding rectangle (red).
+        The uncertainty is shown from low (blue) to high (red).
       </p>
 
       <h4>1.1 Simple Example</h4>
@@ -96,9 +103,10 @@
       <h3>2. Grasp Rate</h3>
 
       <p class="text">
-        The grasp rate, given by the percentage of successful grasps, depends on various factors.
-        We investigated the dependency of the grasp rate on the prediction step.
-        The experiment used the bin picking scenarious from above.
+        Let the grasp rate be the average percentage of successful grasps.
+        We investigated the dependency of the grasp rate on the prediction step in a bin picking scenario.
+        Measuring 1080 grasp attempts, we find that even after the third prediction step the grasp rate is still over 90%.
+        A graphical evaluation is shown in the paper.
       </p>
 
       <p class="experiment-results">
@@ -106,28 +114,30 @@
       </p>
 
 
-      <h3 id="ycb-block-test-benchmark">3. YCB Blocks Benchmark</h2>
+      <h3 id="ycb-block-test-benchmark">3. YCB Box and Blocks Benchmark</h2>
 
       <p class="text">
-        The <a href="http://www.ycbbenchmarks.com/protocols-and-benchmarks/">YCB Blocks Benchmark</a> is about grasping and placing as many objects as possible into another bin within 2 minutes.
-        The wooden cubes have a side length of 2.5cm.
-        The gripper needs to be above the other bin before dropping. 
+        The <a href="http://www.ycbbenchmarks.com/protocols-and-benchmarks/">YCB Box and Blocks Benchmark</a> is about grasping and placing as many objects as possible into another bin within 2 minutes.
+        The wooden cubes have a side length of 2.5cm; the gripper needs to be above the other bin before dropping. 
         The robotic benchmark - in contrast to the original medical test - allows for grasping multiple objects at once.
+        We evaluate different settings, partially where the robot has learned to grasp multiple objects using semantic grasping.
+        Combining this with the transition model, we achieved up to <b>26 objects</b> in <b>2 mins</b>.
       </p>
       
       <center>
         <img src="assets/block-test.gif" />
       </center>
       <p class="text" style="margin-bottom: 3em;">
-        <b>Fig. 1:</b> Our setup for the YCB Blocks benchmark.
-        Note that the Franka Panda robotic arm has a max. velocity of 1.7 m/s and max. acceleration of 13 m/s², so there is room for improvement by using a faster robot.
+        <b>Fig. 1:</b> Our setup for the YCB Box and Blocks Benchmark.
+        Note that the Franka Panda robotic arm has a max. velocity of 1.7 m/s and max. acceleration of 13 m/s², leavingr room for improvement by using a faster robot.
       </p>
 
       <p class="text">
-        <b>Tab. 1:</b> The summarized results of the YCB Blocks benchmark.
+        <b>Tab. 1:</b> The summarized results of the YCB Box and Blocks Benchmark.
         We evaluated two different settings:
         First, single or multiple denotes if the robot was trained to grasp multiple objects at once via semantic grasping.
         Second, prediction uses the transition model to skip some image mesaurements.
+        The random grasp rate denotes uniformly sampled grasps within the bounding box.
       </p>
       
       
@@ -186,17 +196,18 @@
 
 
       <h3>4. Planning Ahead</h3>
-      <p>
+      <p class="text">
         We've implemented a breadth-first planning tree for optimizing multi-step cost functions.
-        As each prediction takes around 30ms, we 
-        We demonstrated this capability at a real-world experiment optimizing for fewest actions for emptying a bin.
+        Below, we demonstrate the planning capability at a experiment, where the robot optimizes for fewest actions for emptying the bin.
+        Videos and image predictions are shown for two typical approaches - using a different number of steps - for emptying the bin.
+        By planning ahead, the robot more often starts by shifting a middle cube, thus reducing the average number of actions from 4.8 to 4.1 steps.
       </p>
 
       <!--h4>Optimize for Fewest Actions</h4-->
 
       <img src="assets/planning-configuration-sm.jpg" style="width: 100%; display: block;" />
       <p>
-        <b>Fig. 2:</b> We showed for this example configuration of three cubes in a row that the robot is able to reduce the average number of actions by 20% by planning a few steps ahead.
+        <b>Fig. 2:</b> For this example configuration of three cubes in a row, the robot is able to reduce the average number of actions by 0.7 steps by planning a few steps ahead.
       </p>
 
       <h4>4.1 Example for 4 actions</h4>
