@@ -1,6 +1,11 @@
 # Learning a Transition Model for Robotic Manipulation
 
-Let a robot learn how to grasp objects by itself. The industrial task of bin picking emphasizes some difficulties like dense clutter, partial observability and unknwon geometry of the target objects. Since teaching the robot grasping in a model-based way is infeasible, we let the robot try to learn grasping via try and error. It needs around 20000 grasp tries using active learning to grasp reliably. This repo includes a range of extensions to the default state-of-the-art planar grasps: Specific grasps, lateral grasps, reactive grasps, model predictions and shifting of objects.
+In this repository, we've published the code for our [publication](https://pantor.github.io/learning-transition-model-for-manipulation/) *Learning a Generative Transition Model for Uncertainty-Aware Robotic Manipulation* submitted to [ICRA 2020](http://www.icra2020.org/). As only parts of the code were specifically written for this publication, we introduce the code regarding the overall project idea.
+
+
+## General Idea
+
+Let a robot learn how to grasp and manipulate objects by itself. The industrial task of bin picking emphasizes some difficulties like dense clutter, partial observability and unknwon geometry of the target objects. Since teaching the robot grasping in a model-based way is infeasible, we let the robot try to learn grasping via try and error. It needs around 20000 grasp tries using active learning to grasp reliably. This repo includes a range of extensions to the default state-of-the-art planar grasps: Specific grasps, lateral grasps, reactive grasps, model predictions and shifting of objects.
 
 
 ## Structure
@@ -14,11 +19,6 @@ The overall structure is as follows:
 This project is a ROS package with launch files and a package.xml. The ROS node /move_group is set to respawn=true. This enables to call rosnode kill /move_group to restart it.
 
 
-## Start
-
-For an easy start, run `sh terminal-setup.sh` for a complete terminal setup. Start the mongodb daemon. Then run `roslaunch bin_picking moveit.launch`, `rosrun bin_picking grasping.py` and check the database server.
-
-
 ## Installation
 
 For the robotic hardware, make sure to load `launch/gripper-config.json` as the Franka end-effector configuration. Currently, following dependencies need to be installed:
@@ -29,10 +29,11 @@ For the robotic hardware, make sure to load `launch/gripper-config.json` as the 
 And all requirements for Python 3.6 via Pip and `python3.6 -m pip install -r requirements.txt`. Patching CvBridge for Python3 and CMake >= 3.12 is given by a snippet in GitLab.
 
 
+## Start
+
+For an easy start, run `sh terminal-setup.sh` for a complete terminal setup. Start the mongodb daemon. Then run `roslaunch bin_picking moveit.launch`, `rosrun bin_picking grasping.py` and check the database server.
+
+
 ## Robot Learning Database
 
-A database, server and viewer for research around robotic grasping.
-
-![database-screenshot](doc/database-screenshot.png?raw=true)
-
-The robot learning database is based on MongoDB, Flask, Vue.js. It shows an overview of all episodes as well as live actions. It can also delete recorded episodes. The server can be started via `python3.6 database/app.py`, afterwards open [localhost](127.0.0.1:8080) in your browser.
+The robot learning database is a database, server and viewer for research around robotic grasping. It is based on MongoDB, Flask, Vue.js. It shows an overview of all episodes as well as live actions. It can also delete recorded episodes. The server can be started via `python3.6 database/app.py`, afterwards open [localhost](127.0.0.1:8080) in your browser.
