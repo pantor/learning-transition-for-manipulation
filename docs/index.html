@@ -73,11 +73,19 @@
         By applying the transition model iteratively, the robot is able to plan multiple actions based on a single image.
       </p>
 
+      <p class="text">
+        Below are three examples seen in the conference video.
+        Step 0 is the measured image, all following images are predictions.
+        To each step, we give the measured reward after execution, the estimated reward before execution and the action type.
+        We use thee grasping actions with different pre-shaped gripper widths (type 0, 1, and 2), one shifting action (type 3) and a bin empty action (type 4).
+        Within the depth images (top) and the uncertainty image (bottom), the gripper is sketched (white) with a bounding rectangle (red).
+      </p>
+
       <h4>1.1 Simple Example</h4>
       <steps-carousel name="simple-example-1" v-bind:steps="simple_example_1"></steps-carousel>
 
 
-      <h4>1.2 Complex Manipulation (<a href="https://drive.google.com/open?id=1_C-UF_C_8Q4CJlExdXh57CzIQU20LHtY">Video</a>)</h4>
+      <h4>1.2 Complex Manipulation</h4>
       <steps-carousel name="complex-manipulation-1" v-bind:steps="complex_manipulation_1"></steps-carousel>
 
 
@@ -123,56 +131,54 @@
       </p>
       
       
-      <center>
-        <table style="margin-top: 2em; margin-bottom: 2em;">
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th>Objects</th>
-              <th>Grasp Rate [%]</th>
-              <th>Picks Per Hour (PPH)</th>
-              <th>Video</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Random</td>
-              <td style="text-align: right">2.2 ± 0.7</td>
-              <td style="text-align: right">13 ± 4</td>
-              <td style="text-align: right">66 ± 20</td>
-              <td style="text-align: right"><a href="https://drive.google.com/open?id=1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ">1 Object 🔗</a></td>
-            </tr>
-            <tr>
-              <td>Single</td>
-              <td style="text-align: right">12.8 ± 0.3</td>
-              <td style="text-align: right">97 ± 2</td>
-              <td style="text-align: right">384 ± 10</td>
-              <td style="text-align: right"><a href="https://drive.google.com/open?id=1nM04orizO_9r_hvEoq3BkA812kTYnFzo">13 Objects 🔗</a></td>
-            </tr>
-            <tr>
-              <td>Single + Prediction</td>
-              <td style="text-align: right">16.4 ± 0.5</td>
-              <td style="text-align: right">94 ± 2</td>
-              <td style="text-align: right">492 ± 14</td>
-              <td style="text-align: right"><a href="https://drive.google.com/open?id=1pn0IlyM1ND6t1zs2kNFoWa2VQBZ4tB3M">15 Objects 🔗</a></td>
-            </tr>
-            <tr>
-              <td>Multiple</td>
-              <td style="text-align: right">20.4 ± 1.0</td>
-              <td style="text-align: right">96 ± 2</td>
-              <td style="text-align: right">612 ± 29</td>
-              <td style="text-align: right"><a href="https://drive.google.com/open?id=1fwwd4ca5Z-UxAccsfPeQ92qdTENn36mu">20 Objects 🔗</a></td>
-            </tr>
-            <tr>
-              <td>Multiple + Prediction</td>
-              <td style="text-align: right">23.4 ± 0.3</td>
-              <td style="text-align: right">94 ± 2</td>
-              <td style="text-align: right">702 ± 14</td>
-              <td style="text-align: right"><a href="https://drive.google.com/open?id=1jsqJQZKdSdHt-12n_03bDCB6ssnA97YJ">26 Objects 🔗</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </center>
+      <table style="margin-top: 2em; margin-bottom: 2em;">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Objects</th>
+            <th>Grasp Rate [%]</th>
+            <th>Picks Per Hour (PPH)</th>
+            <th>Video</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Random</td>
+            <td style="text-align: right">2.2 ± 0.7</td>
+            <td style="text-align: right">13 ± 4</td>
+            <td style="text-align: right">66 ± 20</td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1OO6sl0XW7w1Caw4n2WMRxDPlo2tv36SQ">1 Object 🔗</a></td>
+          </tr>
+          <tr>
+            <td>Single</td>
+            <td style="text-align: right">12.8 ± 0.3</td>
+            <td style="text-align: right">97 ± 2</td>
+            <td style="text-align: right">384 ± 10</td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1nM04orizO_9r_hvEoq3BkA812kTYnFzo">13 Objects 🔗</a></td>
+          </tr>
+          <tr>
+            <td>Single + Prediction</td>
+            <td style="text-align: right">16.4 ± 0.5</td>
+            <td style="text-align: right">94 ± 2</td>
+            <td style="text-align: right">492 ± 14</td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1pn0IlyM1ND6t1zs2kNFoWa2VQBZ4tB3M">15 Objects 🔗</a></td>
+          </tr>
+          <tr>
+            <td>Multiple</td>
+            <td style="text-align: right">20.4 ± 1.0</td>
+            <td style="text-align: right">96 ± 2</td>
+            <td style="text-align: right">612 ± 29</td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1fwwd4ca5Z-UxAccsfPeQ92qdTENn36mu">20 Objects 🔗</a></td>
+          </tr>
+          <tr>
+            <td>Multiple + Prediction</td>
+            <td style="text-align: right">23.4 ± 0.3</td>
+            <td style="text-align: right">94 ± 2</td>
+            <td style="text-align: right">702 ± 14</td>
+            <td style="text-align: right"><a href="https://drive.google.com/open?id=1jsqJQZKdSdHt-12n_03bDCB6ssnA97YJ">26 Objects 🔗</a></td>
+          </tr>
+        </tbody>
+      </table>
 
       <p class="experiment-results">
         Detailed experimental results of each try can be found <a href="detail/block-test.html">here</a>.
@@ -180,14 +186,17 @@
 
 
       <h3>4. Planning Ahead</h3>
+      <p>
+        We've implemented a breadth-first planning tree for optimizing multi-step cost functions.
+        As each prediction takes around 30ms, we 
+        We demonstrated this capability at a real-world experiment optimizing for fewest actions for emptying a bin.
+      </p>
 
       <!--h4>Optimize for Fewest Actions</h4-->
 
-      <center>
-        <img src="assets/planning-configuration-sm.jpg" style="max-width: 640px;" />
-      </center>
+      <img src="assets/planning-configuration-sm.jpg" style="width: 100%; display: block;" />
       <p>
-        <b>Fig. 2:</b> We showed for this example configuration of three cubes in a row that the robot is able to reduce the average number of actions by 30% by planning a few steps ahead.
+        <b>Fig. 2:</b> We showed for this example configuration of three cubes in a row that the robot is able to reduce the average number of actions by 20% by planning a few steps ahead.
       </p>
 
       <h4>4.1 Example for 4 actions</h4>
@@ -226,7 +235,7 @@
       <p>
         Intelligent Process Automation and Robotics Lab (IPR)<br>
         Karlsruhe Institute of Technology (KIT)<br>
-        2019
+        &copy; 2019
       </p>
     </footer>
     
