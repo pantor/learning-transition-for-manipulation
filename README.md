@@ -2,11 +2,12 @@
 
 In this repository, we've published the code for our [publication](https://pantor.github.io/learning-transition-model-for-manipulation/) *Learning a Generative Transition Model for Uncertainty-Aware Robotic Manipulation* submitted to [ICRA 2020](http://www.icra2020.org/). As only parts of the code were specifically written for this publication, we introduce the code regarding the overall project idea.
 
+[![Conference Video](https://lh3.googleusercontent.com/wUb_430R1KmOeoNufe1eimgNfUlT9i3eftDJ1gozzreMNpAnIX_mzDX6P0pmiLvrRjV6s_LZkxo=w640)](https://drive.google.com/file/d/1h5FS_Q2BolOuQupU4NfN2wpcbErKNix9/view?usp=sharing)
+
 
 ## General Idea
 
 Let a robot learn how to grasp and manipulate objects by itself. The industrial task of bin picking emphasizes some difficulties like dense clutter, partial observability and unknwon geometry of the target objects. Since teaching the robot grasping in a model-based way is infeasible, we let the robot try to learn grasping via try and error. It needs around 20000 grasp tries using active learning to grasp reliably. This repo includes a range of extensions to the default state-of-the-art planar grasps: Specific grasps, lateral grasps, reactive grasps, model predictions and shifting of objects.
-
 
 ## Structure
 
