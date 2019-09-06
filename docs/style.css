@@ -755,6 +755,7 @@ a:hover {
   border: 0.2em none #008080;
   border-radius: 50%;
   text-align: center;
+  background-color: #eee;
 }
 
 .chevron::after {
