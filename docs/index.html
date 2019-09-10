@@ -43,14 +43,14 @@
       <center>
         <h3>Abstract</h3>
         <p class="text">
-	  Robot learning of real-world manipulation tasks remains challenging and time consuming, even though actions are often simplified by task-specific manipulation primitives.
-	  To offset the removed time dependency, we additionally learn a visual transition model able to capture stochastic predictions and thus allowing for uncertainty estimation.
-	  We apply this approach to bin picking, where a robot should empty a bin using grasping as well as pre-grasping manipulation as fast as possible.
-	  The transition model is trained with around 34000 pairs of real-world images before and after a manipulation action.
-	  Our approach enables two important skills: First, for applications with flange-mounted cameras, picks per hours (PPH) can be increased by skipping image measurements by around 15%.
-	  Second, we use the model to plan action sequences ahead of time and optimize time-dependent rewards, e.g. to minimize the number of actions required to empty the bin.
-	  We demonstrate both advantages with real-robot experiments and set a new state-of-the-art result in the Box and Blocks Test with 702±14 PPH.
-	</p>
+	  Robot learning of real-world manipulation tasks remains challenging and time consuming, even though actions are often simplified by task-specific manipulation primitives limited to a single time step.
+		In order to compensate the removed time dependency, we additionally learn an image-to-image transition model able to capture the stochastic physics and thus allowing to estimate its uncertainty.
+		We apply this approach to bin picking, where a robot should empty a bin using grasping as well as pre-grasping manipulation as fast as possible.
+		The transition model is trained with around 34000 pairs of real-world images before and after a manipulation action.
+		Our approach enables two important skills: First, for applications with flange-mounted cameras, picks per hours (PPH) can be increased by skipping image measurements by around 15%.
+		Second, we use the model to plan action sequences ahead of time and optimize time-dependent rewards, e.g.\ to minimize the number of actions required to empty the bin.
+		We evaluate both improvements with real-robot experiments and set a new state-of-the-art result in the Box and Blocks Test with 702±14 PPH.
+	 </p>
   
         <h3>Conference Video</h3>
         <div class="videobereich">
