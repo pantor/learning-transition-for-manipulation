@@ -1,6 +1,6 @@
 # Learning a Transition Model for Robotic Manipulation
 
-In this repository, we've published the code for our [publication](https://pantor.github.io/learning-transition-model-for-manipulation/) *Learning a Generative Transition Model for Uncertainty-Aware Robotic Manipulation* submitted to [ICRA 2020](http://www.icra2020.org/). As only parts of the code were specifically written for this publication, we introduce the code regarding the overall project idea.
+In this repository, we've published the code for our [publication](https://pantor.github.io/learning-transition-model-for-manipulation/) *Learning a Generative Transition Model for Uncertainty-Aware Robotic Manipulation*. As only parts of the code were specifically written for this publication, we introduce the code regarding the overall project idea.
 
 <p align="center">
  <a href="https://drive.google.com/file/d/1h5FS_Q2BolOuQupU4NfN2wpcbErKNix9/view?usp=sharing">
