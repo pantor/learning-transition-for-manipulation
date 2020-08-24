@@ -18,6 +18,27 @@ Vue.component('steps-carousel', {
     }
 });
 
+Vue.component('small-prediction-comparison', {
+  props: ['id'],
+  template: '#small-prediction-comparison-template',
+  data() {
+    return { }
+  },
+  methods: {
+  }
+});
+
+Vue.component('small-prediction-rgbd', {
+  props: ['name', 'id'],
+  template: '#small-prediction-rgbd-template',
+  data() {
+    return { }
+  },
+  methods: {
+  }
+});
+
+
 var v = new Vue({
     el: '#content',
     data: {

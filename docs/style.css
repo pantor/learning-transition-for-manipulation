@@ -826,3 +826,30 @@ h3 {
    margin-top: 6rem !important;
    font-weight: bold;
 }
+
+.sample-title {
+   display: flex;
+   width: 100%;
+   justify-content: space-around;
+   font-weight: bold;
+
+   text-align: center;
+
+   margin-top: 1em;
+   margin-bottom: 0.5em;
+}
+
+.sample-row {
+   display: flex;
+   justify-content: space-between;
+
+   margin-bottom: 0.5em;
+}
+
+.sample-image {
+   margin-left: 3px;
+   margin-right: 3px;
+
+   width: 100%;
+   height: auto;
+}

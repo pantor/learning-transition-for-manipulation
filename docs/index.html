@@ -43,10 +43,10 @@
       <center>
         <h3>Abstract</h3>
         <p class="text">
-	  Robot learning of real-world manipulation tasks remains challenging and time consuming, even though actions are often simplified by task-specific manipulation primitives limited to a single time step.
-		In order to compensate the removed time dependency, we additionally learn an image-to-image transition model able to capture the stochastic physics and thus allowing to estimate its uncertainty.
-		We apply this approach to bin picking, the task of emptying a bin using grasping as well as pre-grasping manipulation as fast as possible.
-		The transition model is trained with around 34000 pairs of real-world images before and after a manipulation action.
+    Robot learning of real-world manipulation tasks remains challenging and time consuming, even though actions are often simplified by single-step manipulation primitives.
+    In order to compensate the removed time dependency, we additionally learn an image-to-image transition model that is able to predict a next state including its uncertainty.
+    We apply this approach to bin picking, the task of emptying a bin using grasping as well as pre-grasping manipulation as fast as possible. 
+    The transition model is trained with up to 42000 pairs of real-world images before and after a manipulation action.
 		Our approach enables two important skills: First, for applications with flange-mounted cameras, picks per hours (PPH) can be increased by skipping image measurements by around 15%.
 		Second, we use the model to plan action sequences ahead of time and optimize time-dependent rewards, e.g. to minimize the number of actions required to empty the bin.
 		We evaluate both improvements with real-robot experiments and set a new state-of-the-art result in the Box and Blocks Test with 702±14 PPH.
@@ -64,23 +64,87 @@
 
       <h2>Supplementary Material</h2>
       <p class="text">
-        Below, we present supplementary material for our publication submitted to ICRA 2020.
+        Below, we present supplementary material for our publication submitted to ICRA 2021.
         This includes more visual examples of the transition model (as predicted depth images with corresponding uncertainties), more videos and more detailed experimental results.
         We follow the structure of the experimental evaluation in the paper and the conference video above.
       </p>
-       
 
-      <h3>1. Iterative Prediction</h3>
+
+      <h3>1. Example Predictions</h3>
       <p class="text">
         To recap the paper's introduction, we focus on the task of bin picking using a flange-mounted depth camera.
         The robot should empty the bin using grasping and pre-grasping manipulation (like shifting and pushing) as fast as possible.
         We proposed and implemented a transition model, which is able to predict the depth image after a given action and its corresponding reward.
-        It was trained on around 34000 pairs of real-world images before and after a manipulation action, using a dataset with three different object types.
-        By applying the transition model iteratively, the robot is then able to plan multiple actions based on a single image.
+        It was trained on around 42000 pairs of real-world images before and after a manipulation action, using a dataset with three different object types.
       </p>
 
+
+      <h4>1.1 Comparison BicycleGAN, Pix2Pix and VAE</h4>
+      <p>We compare different neural network architectures for the usage of a transition model.</p>
+      <div class="sample-title">
+        <div style="flex-grow: 1;">Before</div>
+        <div style="flex-grow: 1;">After</div>
+        <div style="flex-grow: 2;">BiCycle GAN</div>
+        <div style="flex-grow: 1;">Pix2Pix</div>
+        <div style="flex-grow: 2;">VAE</div>
+      </div>
+      <small-prediction-comparison id="2019-03-12-15-17-27-286"></small-prediction-comparison>
+      <small-prediction-comparison id="2019-05-07-20-11-38-717"></small-prediction-comparison>
+      <small-prediction-comparison id="2019-06-06-13-49-56-259"></small-prediction-comparison>
+      <small-prediction-comparison id="2019-06-06-17-55-29-592"></small-prediction-comparison>
+      <small-prediction-comparison id="2019-06-24-21-30-17-452"></small-prediction-comparison>
+      <small-prediction-comparison id="2019-07-01-11-09-38-116"></small-prediction-comparison>
+      <small-prediction-comparison id="2019-07-01-11-10-31-450"></small-prediction-comparison>
+      <small-prediction-comparison id="2019-07-01-11-28-34-816"></small-prediction-comparison>
+      <small-prediction-comparison id="2019-07-01-14-05-53-150"></small-prediction-comparison>
+
+
+      <h4>1.2 RGBD Predictions</h4>
+      <p>
+        The transition model is also able to precict complete RGBD images.
+        However, we only use the depth image for downstream manipulation.
+      </p>
+      <div class="sample-title">
+        <div>Before</div>
+        <div>After</div>
+        <div>BiCycle GAN</div>
+        <div style="width: 20px;"></div>
+      </div>
+      <small-prediction-rgbd name="example-rgbd" id="2020-06-25-21-02-27-805"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-rgbd" id="2020-07-02-14-18-59-404"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-rgbd" id="2020-07-08-19-03-07-681"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-rgbd" id="2020-07-27-21-41-02-304"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-rgbd" id="2020-07-27-23-52-19-678"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-rgbd" id="2020-07-28-01-40-42-547"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-rgbd" id="2020-07-28-19-49-21-994"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-rgbd" id="2020-07-29-11-15-13-630"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-rgbd" id="2020-07-29-11-47-18-573"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-rgbd" id="2020-07-29-14-42-23-427"></small-prediction-rgbd>
+
+
+      <h4>1.3 Generalization Predictions</h4>
+      <p>We evaluate our transition model using objects that were never seen during training.</p>
+
+      <div class="sample-title">
+        <div>Before</div>
+        <div>After</div>
+        <div>BiCycle GAN</div>
+        <div style="width: 20px;"></div>
+      </div>
+      <small-prediction-rgbd name="example-generalization" id="2020-08-13-13-28-49-073"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-generalization" id="2020-08-13-13-31-01-577"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-generalization" id="2020-08-13-13-31-50-939"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-generalization" id="2020-08-13-13-32-30-506"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-generalization" id="2020-08-13-13-33-21-639"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-generalization" id="2020-08-13-13-34-17-273"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-generalization" id="2020-08-13-13-38-30-376"></small-prediction-rgbd>
+      <small-prediction-rgbd name="example-generalization" id="2020-08-13-13-43-17-473"></small-prediction-rgbd>
+
+
+      <h3>2. Iterative Prediction</h3>
       <p class="text">
-        Below, the predicted images of the three examples from the conference video are shown.
+        By applying the transition model iteratively, the robot is then able to plan multiple actions based on a single image.
+        Below, the predicted images of three examples are shown.
         We denote step 0 as the measured image with zero uncertainty; all following images are predictions.
         To each step, the measured reward after execution, the estimated reward and its propagated uncertainty before execution and the action type is given.
         We use three grasping actions with different pre-shaped gripper widths (type 0, 1, and 2), one shifting action (type 3) and a bin empty action (type 4).
@@ -88,19 +152,19 @@
         The uncertainty is shown from low (blue) to high (red).
       </p>
 
-      <h4>1.1 Simple Example</h4>
+      <h4>2.1 Simple Example</h4>
       <steps-carousel name="simple-example-1" v-bind:steps="simple_example_1"></steps-carousel>
 
 
-      <h4>1.2 Complex Manipulation</h4>
+      <h4>2.2 Complex Manipulation</h4>
       <steps-carousel name="complex-manipulation-1" v-bind:steps="complex_manipulation_1"></steps-carousel>
 
 
-      <h4>1.3 Bin Picking</h4>
+      <h4>2.3 Bin Picking</h4>
       <steps-carousel name="bin-picking-2" v-bind:steps="bin_picking_2"></steps-carousel>
 
 
-      <h3>2. Grasp Rate</h3>
+      <h3>3. Grasp Rate</h3>
 
       <p class="text">
         Let the grasp rate be the average percentage of successful grasps.
@@ -195,7 +259,7 @@
       </p>
 
 
-      <h3>4. Planning Ahead</h3>
+      <h3>5. Planning Ahead</h3>
       <p class="text">
         We've implemented a breadth-first planning tree for optimizing multi-step cost functions.
         Below, we demonstrate the planning capability at a experiment, where the robot optimizes for fewest actions for emptying the bin.
@@ -210,7 +274,7 @@
         <b>Fig. 2:</b> For this example configuration of three cubes in a row, the robot is able to reduce the average number of actions by 0.7 steps by planning a few steps ahead.
       </p>
 
-      <h4>4.1 Example for 4 actions</h4>
+      <h4>5.1 Example for 4 actions</h4>
       <div class="videobereich">
         <iframe class="videoextern" src="https://drive.google.com/file/d/1HercG5puXAsyX0PJzz8_ScoR6ZEIqOT8/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -218,7 +282,7 @@
       <steps-carousel name="push-try-1" v-bind:steps="push_try_1"></steps-carousel>
 
 
-      <h4>4.2 Example for 5 actions</h4>
+      <h4>5.2 Example for 5 actions</h4>
       <div class="videobereich">
         <iframe class="videoextern" src="https://drive.google.com/file/d/1z-LVGtoKAoKiclZW1Y2CVtvJshnLMm-J/preview" width="640" height="480" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -246,7 +310,7 @@
       <p>
         Intelligent Process Automation and Robotics Lab (IPR)<br>
         Karlsruhe Institute of Technology (KIT)<br>
-        &copy; 2019
+        &copy; 2020
       </p>
     </footer>
     
@@ -266,8 +330,8 @@
             </p>
   
             <div v-bind:class="current_step == i-1 ? 'highlight-image' : ''">
-              <img :src="`assets/${name}/result-${i - 1}.jpg`" v-on:click="setStep(i - 1, steps.length)"/>
-              <img :src="`assets/${name}/uncertainty-${i - 1}.jpg`" v-on:click="setStep(i - 1, steps.length)"/>
+              <img :src="`assets/${name}/result-${i - 1}.jpg`" v-on:click="setStep(i - 1, steps.length)" loading="lazy" />
+              <img :src="`assets/${name}/uncertainty-${i - 1}.jpg`" v-on:click="setStep(i - 1, steps.length)" loading="lazy" />
             </div>
           </div>
         </div>
@@ -280,6 +344,35 @@
           <div>
             <button class="button-right chevron right" v-on:click="setStep(current_step + 1, steps.length)" :disabled="current_step >= steps.length - 1"></button>
           </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="small-prediction-comparison-template">
+      <div>
+        <div class="sample-row">
+          <img class="sample-image" :src="`assets/example-predict/${id}/bi_s_bef.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/example-predict/${id}/bi_s_aft.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/example-predict/${id}/bi_result.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/example-predict/${id}/bi_unc.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/example-predict/${id}/pix2pix_result.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/example-predict/${id}/vae_result.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/example-predict/${id}/vae_unc.png`" loading="lazy" />
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="small-prediction-rgbd-template">
+      <div>
+        <div class="sample-row">
+          <img class="sample-image" :src="`assets/${name}/${id}/bi_s_bef_color.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/${name}/${id}/bi_s_bef_depth.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/${name}/${id}/bi_s_aft_color.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/${name}/${id}/bi_s_aft_depth.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/${name}/${id}/bi_result_color.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/${name}/${id}/bi_result_depth.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/${name}/${id}/bi_unc_color.png`" loading="lazy" />
+          <img class="sample-image" :src="`assets/${name}/${id}/bi_unc_depth.png`" loading="lazy" />
         </div>
       </div>
     </script>
