@@ -1,6 +1,6 @@
 # Learning a Transition Model for Robotic Manipulation
 
-In this repository, we've published the code for our [publication](https://pantor.github.io/learning-transition-model-for-manipulation/) *Learning a Generative Transition Model for Uncertainty-Aware Robotic Manipulation*. As only parts of the code were specifically written for this publication, we introduce the code regarding the overall project idea.
+In this repository, we've published the code for our [publication](https://arxiv.org/abs/2107.02464) *Learning a Generative Transition Model for Uncertainty-Aware Robotic Manipulation*, accepted for the *2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2021)*. As only parts of the code were specifically written for this publication, we introduce the code regarding the overall project idea.
 
 <p align="center">
  <a href="https://drive.google.com/file/d/1h5FS_Q2BolOuQupU4NfN2wpcbErKNix9/view?usp=sharing">
