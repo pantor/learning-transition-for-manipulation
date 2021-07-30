@@ -1,5 +1,11 @@
 # Learning a Transition Model for Robotic Manipulation
 
+<p align="center">
+ We've released our easy-to-use Python package <b>Griffig</b>!<br>
+ You can find more information in its <a href="https://github.com/pantor/griffig">repository</a> and on the website <a href="https://griffig.xyz">griffig.xyz</a><br>
+<hr>
+</p>
+
 In this repository, we've published the code for our [publication](https://arxiv.org/abs/2107.02464) *Learning a Generative Transition Model for Uncertainty-Aware Robotic Manipulation*, accepted for the *2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2021)*. As only parts of the code were specifically written for this publication, we introduce the code regarding the overall project idea.
 
 <p align="center">
