@@ -8,6 +8,6 @@ pandas
 pillow
 requests
 scipy
-tensorflow-gpu==1.15.0
+tensorflow-gpu==2.6.4
 tensorflow_probability==0.4
 tqdm
